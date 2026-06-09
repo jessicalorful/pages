@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>客語認證學習材料待辦清單</title>
+<style>
+:root {
+  --primary:#6B46C1;--primary-light:#EDE9FE;--primary-dark:#4C1D95;
+  --green:#059669;--orange:#D97706;--orange-light:#FEF3C7;
+  --blue:#2563EB;--red:#DC2626;--red-light:#FEE2E2;
+  --gray:#6B7280;--gray-light:#F9FAFB;--border:#E5E7EB;
+  --text:#111827;--text-soft:#6B7280;--shadow:0 1px 3px rgba(0,0,0,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;background:#F5F3FF;color:var(--text);min-height:100vh}
+header{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;padding:2rem;text-align:center}
+header h1{font-size:1.8rem;margin-bottom:.4rem}
+header p{opacity:.85;font-size:.95rem}
+.stat-row{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
+.stat-chip{background:rgba(255,255,255,.18);border-radius:99px;padding:.3rem 1rem;font-size:.82rem;font-weight:600}
+.progress-overview{background:#fff;margin:1.5rem auto;max-width:900px;border-radius:12px;padding:1.2rem 1.5rem;box-shadow:var(--shadow);display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.progress-overview .label{font-weight:600;color:var(--primary-dark);white-space:nowrap}
+.progress-bar-wrap{flex:1;min-width:200px}
+.progress-bar-bg{background:#E5E7EB;border-radius:99px;height:10px;overflow:hidden}
+.progress-bar-fill{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--primary),#A78BFA);transition:width .4s;width:0%}
+.progress-text{font-size:.85rem;color:var(--text-soft);margin-top:4px}
+.deadline-chip{background:var(--orange-light);color:var(--orange);border-radius:99px;padding:.3rem .9rem;font-size:.85rem;font-weight:600;white-space:nowrap}
+.yt-chip{background:#FEE2E2;color:#B91C1C;border-radius:99px;padding:.3rem .9rem;font-size:.85rem;font-weight:600;white-space:nowrap}
+main{max-width:900px;margin:0 auto 3rem;padding:0 1rem}
+.category{background:#fff;border-radius:12px;margin-bottom:1rem;box-shadow:var(--shadow);overflow:hidden}
+.category > details > summary{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;cursor:pointer;user-select:none;list-style:none;border-left:4px solid transparent;transition:background .15s}
+.category > details > summary::-webkit-details-marker{display:none}
+.category > details > summary:hover{background:var(--gray-light)}
+.category > details[open] > summary{border-bottom:1px solid var(--border)}
+.cat-icon{font-size:1.3rem}
+.cat-title{font-size:1.05rem;font-weight:700;flex:1}
+.cat-count{font-size:.8rem;background:var(--primary-light);color:var(--primary);border-radius:99px;padding:2px 10px;font-weight:600}
+.cat-arrow{font-size:.75rem;color:var(--text-soft);transition:transform .2s}
+.category > details[open] .cat-arrow{transform:rotate(90deg)}
+.cat-vocab>details>summary{border-left-color:#6B46C1}
+.cat-phonics>details>summary{border-left-color:#2563EB}
+.cat-exam>details>summary{border-left-color:#D97706}
+.cat-writing>details>summary{border-left-color:#059669}
+.cat-speaking>details>summary{border-left-color:#DC2626}
+.cat-idioms>details>summary{border-left-color:#0891B2}
+.item-list{padding:.5rem 0}
+.item{display:flex;align-items:flex-start;gap:.75rem;padding:.65rem 1.25rem;border-bottom:1px solid #F3F4F6;transition:background .12s}
+.item:last-child{border-bottom:none}
+.item:hover{background:#FAFAFA}
+.item>input[type="checkbox"]{margin-top:3px;width:17px;height:17px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+.item-body{flex:1;min-width:0}
+.item-title{font-size:.92rem;font-weight:500;color:var(--text);line-height:1.4}
+.item-title a{color:var(--text);text-decoration:none}
+.item-title a:hover{color:var(--primary);text-decoration:underline}
+.item-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.3rem}
+.tag{font-size:.72rem;border-radius:4px;padding:1px 7px;font-weight:500}
+.tag-youtube{background:#FEE2E2;color:#B91C1C}
+.tag-hakka{background:var(--primary-light);color:var(--primary-dark)}
+.tag-drive{background:#FEF3C7;color:#92400E}
+.tag-podcast{background:#FCE7F3;color:#9D174D}
+.tag-notion{background:#F0F9FF;color:#0C4A6E}
+.tag-website{background:#ECFDF5;color:#065F46}
+.tag-ebook{background:#F5F3FF;color:#4C1D95}
+.tag-hours{background:#F3F4F6;color:#374151}
+.item.done .item-title a{color:#9CA3AF;text-decoration:line-through}
+.item.done{opacity:.6}
+.sub-group-label{padding:.6rem 1.25rem .3rem;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-soft);background:#F9FAFB;border-bottom:1px solid var(--border)}
+
+/* ── Video expand ── */
+.video-expand{margin:.5rem 0 0;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.video-expand>summary{display:flex;align-items:center;gap:.5rem;padding:.45rem .75rem;cursor:pointer;background:#F9FAFB;font-size:.8rem;color:var(--text-soft);list-style:none;user-select:none;border-bottom:1px solid transparent}
+.video-expand>summary::-webkit-details-marker{display:none}
+.video-expand[open]>summary{border-bottom-color:var(--border)}
+.video-expand>summary:hover{background:#F3F4F6}
+.ea{font-size:.65rem;margin-left:auto;transition:transform .2s;flex-shrink:0}
+.video-expand[open]>summary .ea{transform:rotate(90deg)}
+.vid-prog{margin-left:auto;background:var(--primary-light);color:var(--primary);border-radius:99px;padding:1px 8px;font-size:.72rem;font-weight:600;white-space:nowrap}
+.pl-note{color:var(--orange);font-style:italic;font-size:.72rem}
+.video-item{display:flex;align-items:center;gap:.55rem;padding:.42rem .75rem;border-bottom:1px solid #F3F4F6;background:#fff}
+.video-item:last-child{border-bottom:none}
+.video-item:hover{background:#FAFAFA}
+.video-item input[type="checkbox"]{width:15px;height:15px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+.vid-title{flex:1;font-size:.83rem;color:var(--text);text-decoration:none;line-height:1.3}
+.vid-title:hover{color:var(--primary);text-decoration:underline}
+.vid-dur{font-size:.75rem;color:var(--text-soft);white-space:nowrap;font-variant-numeric:tabular-nums;background:#F3F4F6;border-radius:4px;padding:1px 5px;flex-shrink:0}
+.video-item.vid-done .vid-title{color:#9CA3AF;text-decoration:line-through}
+.video-item.vid-done{opacity:.6}
+.btn-row{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin:0 auto 2rem}
+.reset-btn{padding:.5rem 1.5rem;background:transparent;border:1px solid var(--border);border-radius:99px;color:var(--text-soft);cursor:pointer;font-size:.85rem;transition:all .15s}
+.reset-btn:hover{background:var(--red-light);color:var(--red);border-color:var(--red)}
+.sync-btn{padding:.5rem 1.4rem;background:var(--primary);border:none;border-radius:99px;color:#fff;cursor:pointer;font-size:.85rem;font-weight:600;transition:background .15s}
+.sync-btn:hover{background:var(--primary-dark)}
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(16px);background:#111827;color:#fff;border-radius:10px;padding:.65rem 1.3rem;font-size:.85rem;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:300;max-width:88vw;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2rem}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📚 客語認證學習材料</h1>
+  <p>四縣腔 · 中級 ＋ 中高級 · 目標：2026 年 10 月前完成</p>
+  <div class="stat-row">
+    <span class="stat-chip">🎬 YouTube 99 支影片</span>
+    <span class="stat-chip">⏱ YouTube 總時長 399 分 08 秒</span>
+    <span class="stat-chip" id="yt-watched-chip">✅ 已看 0 分 00 秒</span>
+  </div>
+</header>
+
+<div class="progress-overview">
+  <span class="label">整體進度</span>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="global-bar"></div></div>
+    <div class="progress-text" id="global-text">計算中…</div>
+  </div>
+  <span class="deadline-chip">🗓 截止：2026 年 10 月</span>
+</div>
+
+<main>
+
+<!-- ── 1. 詞彙 ── -->
+<div class="category cat-vocab">
+<details open>
+<summary><span class="cat-icon">📖</span><span class="cat-title">詞彙學習 Vocabulary</span><span class="cat-count" id="cnt-vocab"></span><span class="cat-arrow">▶</span></summary>
+<div class="item-list" data-cat="vocab">
+  <div class="sub-group-label">詞彙庫</div>
+  <div class="item">
+    <input type="checkbox" data-cat="vocab">
+    <div class="item-body">
+      <div class="item-title"><a href="https://drive.google.com/drive/folders/1WATEBp6OjNhWB98Orft8LdhNgntX6kfA" target="_blank">Google Drive 詞彙資料夾（中級 + 中高級 ODS 檔）</a></div>
+      <div class="item-meta"><span class="tag tag-drive">Google Drive</span><span class="tag tag-hours">3,831 詞</span></div>
+    </div>
+  </div>
+  <div class="item">
+    <input type="checkbox" data-cat="vocab">
+    <div class="item-body">
+      <div class="item-title"><a href="https://drive.google.com/drive/folders/1VoSiv6BFhwIH61VRQhAPiHmfOE0XvCtk?usp=sharing" target="_blank">Google Drive 第19梯次認證輔導班（客語四縣腔）+ 語料選粹影片</a></div>
+      <div class="item-meta"><span class="tag tag-drive">Google Drive</span><span class="tag tag-hours">28 支影片</span></div>
+<details class="video-expand">
+<summary><span>展開 28 個影片檔案</span><span class="ea">▶</span></summary>
+<div class="vlist">
+<div class="video-item" data-pl-id="drive" data-vid-idx="0"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1TveiNfMhNFLe8m2x6nGgIuGYKh7LnxZA/view?usp=drivesdk" target="_blank" class="vid-title">語料選粹 6. 詩選篇（四縣腔中高級）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="1"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1zj9bZDZ_ZX-w9okFuZ_J8XoC2tLX2ELi/view?usp=drivesdk" target="_blank" class="vid-title">語料選粹 7. 詩選篇（四縣腔中高級）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="2"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1zalWVw1p3mlGQUDQjGpVS1wrzm0696N2/view?usp=drivesdk" target="_blank" class="vid-title">語料選粹 9. 詩選篇（四縣腔中高級）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="3"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1ofJU0LaT2hUHpHuq_AnCuwz2KHiRallX/view?usp=drivesdk" target="_blank" class="vid-title">語料選粹 10. 詩選篇（四縣腔中高級）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="4"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1abdQp8PfmMtsB3sSINuhGrwYvosp8ArY/view?usp=drivesdk" target="_blank" class="vid-title">12/13 葛如中－客語中高級測驗介紹（1）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="5"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1Uf22mcrvZMIgOh_rOVPZWL3VwclttoPd/view?usp=drivesdk" target="_blank" class="vid-title">12/13 葛如中－客語中高級測驗介紹（2，有AI出題）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="6"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1sz_k_oAGQOoPdwrDkc_TIhFGPi1oIUAR/view?usp=drivesdk" target="_blank" class="vid-title">12/13 葛如中－客語中高級測驗介紹（3）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="7"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1XsnYeQCeeUriNbmVl1nKUJs8WzaiYCyq/view?usp=drivesdk" target="_blank" class="vid-title">12/13 葛如中－口語朗讀測驗（5）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="8"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/19NRZD54p5Lvkgr7TimiYHPXzXE2apnyG/view?usp=drivesdk" target="_blank" class="vid-title">12/13 葛如中－口語朗讀測驗（6）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="9"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/13Jmwm2kIwNe6MIME3jcELL2Uw5KnciZp/view?usp=drivesdk" target="_blank" class="vid-title">12/14 黃秋燕－音韻系統拼音（1）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="10"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1r-YpTG6F6i3Girw6_0iLTgRsHphrNS2o/view?usp=drivesdk" target="_blank" class="vid-title">12/14 黃秋燕－音韻系統拼音（2）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="11"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1dm4DLr7rbPRAAaqn0xLX4H7xlOemdLf8/view?usp=drivesdk" target="_blank" class="vid-title">12/14 黃秋燕－音韻系統拼音（3）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="12"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1ILwc6cIR8VO-LuPqi2yc_AcVZmfo7JMB/view?usp=drivesdk" target="_blank" class="vid-title">12/14 黃秋燕－音韻系統拼音（4）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="13"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1T_vjZcJ0SqH0HFz9WMwoeP2tQKHJZJzk/view?usp=drivesdk" target="_blank" class="vid-title">12/14 黃秋燕－音韻系統拼音（5）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="14"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1Dp_6mBRw4mfDl3fCsxHrGgrSDp4i7g2z/view?usp=drivesdk" target="_blank" class="vid-title">12/14 黃秋燕－音韻系統拼音（6）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="15"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1A_QrAMDm5jD5wYSiqtwt-KbKUipQvPjq/view?usp=drivesdk" target="_blank" class="vid-title">12/20 徐煥昇－聽力測驗 Meet（13:40）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="16"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1ArIBbIRylOtyIrkwcpNbsftJkPqw1N6h/view?usp=drivesdk" target="_blank" class="vid-title">12/20 徐煥昇－聽力測驗 Meet（15:03）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="17"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/16cMJlfmRxDIuyg8yhgbd-2Jn0HVI31eA/view?usp=drivesdk" target="_blank" class="vid-title">12/20 徐煥昇－聽力測驗 Meet（15:20）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="18"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1lc1ZrZ-xh7GDMFLu-7tXhU6xO6X6vjXp/view?usp=drivesdk" target="_blank" class="vid-title">12/21 徐煥昇－閱讀測驗 Meet（09:03）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="19"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1nI0H1Qf_hpnkcUAd0c6D8jlIbZVTIduw/view?usp=drivesdk" target="_blank" class="vid-title">12/21 徐煥昇－書寫作文 Meet（14:58）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="20"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1um4prwk3AVDUFCYraM-vHA-baM6US7pZ/view?usp=drivesdk" target="_blank" class="vid-title">12/27 葛如中－華語轉客語（1）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="21"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1ImDDnQ0VrAOqhp8jC7w_oubm0ZGo_Jfh/view?usp=drivesdk" target="_blank" class="vid-title">12/27 葛如中－華語轉客語（2）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="22"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1UrBnvYjsL2O194GXrlC32Sb3Q02EYbVQ/view?usp=drivesdk" target="_blank" class="vid-title">12/27 葛如中－華語轉客語（3）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="23"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1cLD1OKB_teRotR5x-VMeTAqADbbe-vr7/view?usp=drivesdk" target="_blank" class="vid-title">12/27 葛如中－華語轉客語 Meet（09:11）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="24"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/14tz94DjRflL8zcdQTEWKz5R_o5nvhI_E/view?usp=drivesdk" target="_blank" class="vid-title">12/27 葛如中－華語轉客語 Meet（10:11）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="25"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1WQsksyAO7BV4RRKQ6busb95Xxl09BT8u/view?usp=drivesdk" target="_blank" class="vid-title">12/27 葛如中－口語表達（1）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="26"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1iHwvTsUcRY_tKkMV5eX7DejwamSct8d4/view?usp=drivesdk" target="_blank" class="vid-title">12/27 葛如中－口語表達（2）</a></div>
+<div class="video-item" data-pl-id="drive" data-vid-idx="27"><input type="checkbox" class="vid-cb"><a href="https://drive.google.com/file/d/1xXRUtydoqf5CbaRGg0ET5Fnurx9FxDe7/view?usp=drivesdk" target="_blank" class="vid-title">12/27 葛如中－口語表達（3）</a></div>
+</div>
+</details>
+    </div>
+  </div>
+  <div class="item">
+    <input type="checkbox" data-cat="vocab">
+    <div class="item-body">
+      <div class="item-title"><a href="https://hakspring.pages.dev/" target="_blank">HakSpring 四縣中高級詞彙工具（邊聽邊標記熟悉度）</a></div>
+      <div class="item-meta"><span class="tag tag-website">互動網站</span></div>
+    </div>
+  </div>
+  <div class="sub-group-label">YouTube 播放清單</div>
+  <div class="item" data-pl-id="pl1">
+    <input type="checkbox" data-cat="vocab">
+    <div class="item-body">
+      <div class="item-title"><a href="https://youtube.com/playlist?list=PLa4jdY-zUDqrcxgIzAOTIyAYbb8O1SyTb" target="_blank">語料選粹：客語能力認證中級暨中高級（四縣腔）</a></div>
+      <div class="item-meta"><span class="tag tag-youtube">YouTube 播放清單</span><span class="tag tag-hours" id="pl1-stat">12 支 · 127 分 38 秒</span></div>
+    </div>
+  </div>
+  <div class="item" data-pl-id="pl2">
+    <input type="checkbox" data-cat="vocab">
+    <div class="item-body">
+      <div class="item-title"><a href="https://youtube.com/playlist?list=PLa4jdY-zUDqpPR9VYBh3L03IfJ-N5YtOw" target="_blank">客語 AAAA 四字疊詞系列</a></div>
+      <div class="item-meta"><span class="tag tag-youtube">YouTube 播放清單</span><span class="tag tag-hours" id="pl2-stat">7 支 · 8 分 38 秒</span></div>
+    </div>
+  </div>
+</div>
+</details>
+</div>
+
+<!-- ── 2. 拼音 ── -->
+<div class="category cat-phonics">
+<details>
+<summary><span class="cat-icon">🔊</span><span class="cat-title">拼音基礎 Phonics</span><span class="cat-count" id="cnt-phonics"></span><span class="cat-arrow">▶</span></summary>
+<div class="item-list" data-cat="phonics">
+  <div class="sub-group-label">哈客網路學院 — 劉勝權老師拼音三部曲</div>
+  <div class="item"><input type="checkbox" data-cat="phonics"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000137" target="_blank">客語拼音教學—四縣腔（上集）：聲母</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ 60 分</span></div></div></div>
+  <div class="item"><input type="checkbox" data-cat="phonics"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000155" target="_blank">客語拼音教學—四縣腔（中集）：韻母</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ 60 分</span></div></div></div>
+  <div class="item"><input type="checkbox" data-cat="phonics"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000162" target="_blank">客語拼音教學—四縣腔（下集）：聲調與連續變調</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ 60 分</span></div></div></div>
+  <div class="item"><input type="checkbox" data-cat="phonics"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000267" target="_blank">四縣腔客語拼音教學宣傳影片</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ 60 分</span></div></div></div>
+</div>
+</details>
+</div>
+
+<!-- ── 3. 考試策略 ── -->
+<div class="category cat-exam">
+<details>
+<summary><span class="cat-icon">🎯</span><span class="cat-title">考試策略 Exam Strategy</span><span class="cat-count" id="cnt-exam"></span><span class="cat-arrow">▶</span></summary>
+<div class="item-list" data-cat="exam">
+  <div class="sub-group-label">哈客網路學院 — 各題型攻略</div>
+  <div class="item"><input type="checkbox" data-cat="exam"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000117" target="_blank">客語能力中級暨中高級認證—考試題型分析（陳志寧校長）</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ 120 分</span></div></div></div>
+  <div class="item"><input type="checkbox" data-cat="exam"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000461" target="_blank">客語能力中級暨中高級認證得分策略（口語、聽力、閱讀）</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ 30 分</span></div></div></div>
+  <div class="item"><input type="checkbox" data-cat="exam"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000596" target="_blank">客語能力中級暨中高級閱讀測驗練功寶典（詞彙、文句、填空）</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span></div></div></div>
+</div>
+</details>
+</div>
+
+<!-- ── 4. 書寫/作文 ── -->
+<div class="category cat-writing">
+<details>
+<summary><span class="cat-icon">✍️</span><span class="cat-title">書寫 / 作文 Writing</span><span class="cat-count" id="cnt-writing"></span><span class="cat-arrow">▶</span></summary>
+<div class="item-list" data-cat="writing">
+  <div class="sub-group-label">哈客網路學院 — 寫作策略</div>
+  <div class="item"><input type="checkbox" data-cat="writing"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000463" target="_blank">四縣腔客語寫作得分策略（音標書寫、語句、作文組織）</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ 60 分</span></div></div></div>
+  <div class="sub-group-label">YouTube 播放清單</div>
+  <div class="item" data-pl-id="pl3">
+    <input type="checkbox" data-cat="writing">
+    <div class="item-body">
+      <div class="item-title"><a href="https://youtube.com/playlist?list=PLzgAweye8Ud7R6dwzBFeg-x6xBlT6S2XH" target="_blank">客家俗諺俚語（四縣腔）</a></div>
+      <div class="item-meta"><span class="tag tag-youtube">YouTube 播放清單</span><span class="tag tag-hours" id="pl3-stat">30 支 · 61 分 35 秒</span></div>
+    </div>
+  </div>
+  <div class="item" data-pl-id="pl4">
+    <input type="checkbox" data-cat="writing">
+    <div class="item-body">
+      <div class="item-title"><a href="https://youtube.com/playlist?list=PLA0wxie8uECoVAu3PrFkQ5t831t2oDSeu" target="_blank">客家諺語 / 慣用語 / 熟語系列 Hakka Proverbs &amp; Idioms</a></div>
+      <div class="item-meta"><span class="tag tag-youtube">YouTube 播放清單</span><span class="tag tag-hours" id="pl4-stat">10 支 · 53 分 39 秒</span></div>
+    </div>
+  </div>
+  <div class="item" data-pl-id="pl5">
+    <input type="checkbox" data-cat="writing">
+    <div class="item-body">
+      <div class="item-title"><a href="https://youtube.com/playlist?list=PLA0wxie8uECqeOQeT9j707wQTMC1m36vc" target="_blank">簡易客家話系列 Easy Hakka</a></div>
+      <div class="item-meta"><span class="tag tag-youtube">YouTube 播放清單</span><span class="tag tag-hours" id="pl5-stat">16 支 · 28 分 38 秒</span></div>
+    </div>
+  </div>
+  <div class="sub-group-label">Podcast</div>
+  <div class="item"><input type="checkbox" data-cat="writing"><div class="item-body"><div class="item-title"><a href="https://podcasts.apple.com/tw/podcast/%E8%AC%9B%E5%AE%A2%E5%BB%A3%E6%92%AD%E9%9B%BB%E8%87%BA-i-%E9%9D%9B%E8%8A%B1%E6%9C%89%E8%81%B2%E6%9B%B8/id1566538731" target="_blank">講客廣播電臺—i 靚花有聲書（Apple Podcast）</a></div><div class="item-meta"><span class="tag tag-podcast">Apple Podcast</span></div>
+<details class="video-expand">
+<summary><span>展開 30 集四縣腔</span><span class="ea">▶</span></summary>
+<div class="vlist">
+<div class="video-item" data-pl-id="podcast" data-vid-idx="0"><input type="checkbox" class="vid-cb"><a href="https://podcasts.apple.com/tw/podcast/%E8%AC%9B%E5%AE%A2%E5%BB%A3%E6%92%AD%E9%9B%BB%E8%87%BA-i-%E9%9D%9B%E8%8A%B1%E6%9C%89%E8%81%B2%E6%9B%B8/id1566538731?i=1000771084815" target="_blank" class="vid-title">01. 小滿號｜沿著女路，拾回遺落的生活拼圖——豐原女路</a><span class="vid-dur">Apple</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="1"><input type="checkbox" class="vid-cb"><a href="https://podcasts.apple.com/tw/podcast/%E8%AC%9B%E5%AE%A2%E5%BB%A3%E6%92%AD%E9%9B%BB%E8%87%BA-i-%E9%9D%9B%E8%8A%B1%E6%9C%89%E8%81%B2%E6%9B%B8/id1566538731?i=1000769922741" target="_blank" class="vid-title">02. 小滿號｜成為手心向下的人——海山社區的人情咖啡師</a><span class="vid-dur">Apple</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="2"><input type="checkbox" class="vid-cb"><a href="https://podcasts.apple.com/tw/podcast/%E8%AC%9B%E5%AE%A2%E5%BB%A3%E6%92%AD%E9%9B%BB%E8%87%BA-i-%E9%9D%9B%E8%8A%B1%E6%9C%89%E8%81%B2%E6%9B%B8/id1566538731?i=1000767677243" target="_blank" class="vid-title">03. 小滿號｜不轉彎的堅持－舞蹈工作者林素蓮</a><span class="vid-dur">Apple</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="3"><input type="checkbox" class="vid-cb"><a href="https://podcasts.apple.com/tw/podcast/%E8%AC%9B%E5%AE%A2%E5%BB%A3%E6%92%AD%E9%9B%BB%E8%87%BA-i-%E9%9D%9B%E8%8A%B1%E6%9C%89%E8%81%B2%E6%9B%B8/id1566538731?i=1000766556245" target="_blank" class="vid-title">04. 清明號｜風裡面的情景，河裡面的時間－恆隆行內容總監彭永翔</a><span class="vid-dur">Apple</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="4"><input type="checkbox" class="vid-cb"><a href="https://podcasts.apple.com/tw/podcast/%E8%AC%9B%E5%AE%A2%E5%BB%A3%E6%92%AD%E9%9B%BB%E8%87%BA-i-%E9%9D%9B%E8%8A%B1%E6%9C%89%E8%81%B2%E6%9B%B8/id1566538731?i=1000764614855" target="_blank" class="vid-title">05. 清明號｜市場裡的心靈綠洲——一味淨生活</a><span class="vid-dur">Apple</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="5"><input type="checkbox" class="vid-cb"><a href="https://podcasts.apple.com/tw/podcast/%E8%AC%9B%E5%AE%A2%E5%BB%A3%E6%92%AD%E9%9B%BB%E8%87%BA-i-%E9%9D%9B%E8%8A%B1%E6%9C%89%E8%81%B2%E6%9B%B8/id1566538731?i=1000763174260" target="_blank" class="vid-title">06. 清明號｜以創新延續記憶與信仰的香火——冠德香舖</a><span class="vid-dur">Apple</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="6"><input type="checkbox" class="vid-cb"><a href="https://podcasts.apple.com/tw/podcast/%E8%AC%9B%E5%AE%A2%E5%BB%A3%E6%92%AD%E9%9B%BB%E8%87%BA-i-%E9%9D%9B%E8%8A%B1%E6%9C%89%E8%81%B2%E6%9B%B8/id1566538731?i=1000761709026" target="_blank" class="vid-title">07. 清明號｜打造童年鄉村生活——天月農坊鄉土人文工作室</a><span class="vid-dur">Apple</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="7"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/102842" target="_blank" class="vid-title">08. 清明號｜寧願不正經，也不要不自然－攝影師汪正翔</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="8"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/102556" target="_blank" class="vid-title">09. 清明號｜苗栗味從這裡開始——南苗市場</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="9"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/102293" target="_blank" class="vid-title">10. 清明號｜日本人的客家料理教室——LaReine Taipei</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="10"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/102057" target="_blank" class="vid-title">11. 清明號｜沿著水里溪走，見證時光流轉</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="11"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/101768" target="_blank" class="vid-title">12. 清明號｜跨越海洋的記憶，客家文化在大溪地的新生</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="12"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/101503" target="_blank" class="vid-title">13. 清明號｜找回兒時記憶的水里——阿聰師什錦麵</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="13"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/101234" target="_blank" class="vid-title">14. 清明號｜離開，是為了自由地回來—爵士鋼琴音樂家蘇郁涵</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="14"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/100781" target="_blank" class="vid-title">15. 清明號｜青草、調酒與故鄉，「个所栽」的慢生活實驗</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="15"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/100168" target="_blank" class="vid-title">16. 清明號｜變裝就是，不斷穿上標籤再不斷脫下－變裝藝術家 UG</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="16"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/99926" target="_blank" class="vid-title">17. 清明號｜相信直覺，捏塑出理想的自己——米口・陶</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="17"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/99153" target="_blank" class="vid-title">18. 清明號｜第二屆南北桃地獄鎮興運動會</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="18"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/98880" target="_blank" class="vid-title">19. 清明號｜改造有機想像，二代共營的無毒理念——力青農場</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="19"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/98597" target="_blank" class="vid-title">20. 清明號｜把義大利風味帶回家鄉——春木手工窯烤披薩</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="20"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/98085" target="_blank" class="vid-title">21. 清明號｜以「艾」為「茗」，翻轉高原產業</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="21"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/97807" target="_blank" class="vid-title">22. 清明號｜成為身體成為妳－《bl!nk》總編輯・作家 ab 李姿穎</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="22"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/97427" target="_blank" class="vid-title">23. 小雪號｜一探新竹獨特小吃「粉沯」！</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="23"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/97267" target="_blank" class="vid-title">24. 小雪號｜山麓下的飲食大熔爐——台東關山電光社區</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="24"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/96948" target="_blank" class="vid-title">25. 小雪號｜三合院的禾埕傳統——竹北星際籃球場</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="25"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/96360" target="_blank" class="vid-title">26. 小雪號｜冬日綿密芋頭香——紮根在地的芋頭青農</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="26"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/96089" target="_blank" class="vid-title">27. 小雪號｜與AI共同守護關山米的梓園碾米工廠</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="27"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/95585" target="_blank" class="vid-title">28. 小雪號｜站在「島嶼東方」，享受走走池上的移居日常</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="28"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/95310" target="_blank" class="vid-title">29. 小雪號｜台灣文資十字架——北埔新姜天水堂</a><span class="vid-dur">HakkaRadio</span></div>
+<div class="video-item" data-pl-id="podcast" data-vid-idx="29"><input type="checkbox" class="vid-cb"><a href="https://www.hakkaradio.org.tw/program/play/id/204/audioId/94851" target="_blank" class="vid-title">30. 小雪號｜擁抱多元的性別之家——風城部屋小凱與禹龍</a><span class="vid-dur">HakkaRadio</span></div>
+</div>
+</details>
+</div></div>
+</div>
+</details>
+</div>
+
+<!-- ── 5. 口說練習 ── -->
+<div class="category cat-speaking">
+<details>
+<summary><span class="cat-icon">🗣️</span><span class="cat-title">口說練習 Speaking</span><span class="cat-count" id="cnt-speaking"></span><span class="cat-arrow">▶</span></summary>
+<div class="item-list" data-cat="speaking">
+  <div class="sub-group-label">YouTube 播放清單</div>
+  <div class="item" data-pl-id="pl6">
+    <input type="checkbox" data-cat="speaking">
+    <div class="item-body">
+      <div class="item-title"><a href="https://youtube.com/playlist?list=PLa4jdY-zUDqqcsrZdM5hddLOLXKIuI6bZ" target="_blank">客語口說故事（北四縣腔）</a></div>
+      <div class="item-meta"><span class="tag tag-youtube">YouTube 播放清單</span><span class="tag tag-hours" id="pl6-stat">12 支 · 75 分 56 秒</span></div>
+    </div>
+  </div>
+  <div class="item" data-pl-id="pl7">
+    <input type="checkbox" data-cat="speaking">
+    <div class="item-body">
+      <div class="item-title"><a href="https://youtube.com/playlist?list=PLwUn4G1P9Ud2Z0RoJSWKhQ0uF3XcvRXAL" target="_blank">小兒子系列動畫—客語發音</a></div>
+      <div class="item-meta"><span class="tag tag-youtube">YouTube 播放清單</span><span class="tag tag-hours" id="pl7-stat">12 支 · 43 分 04 秒</span></div>
+    </div>
+  </div>
+  <div class="sub-group-label">哈客網路學院 — 口說資源</div>
+  <div class="item"><input type="checkbox" data-cat="speaking"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/voice_story/index.html" target="_blank">客語口說故事（哈客網路學院互動平台）</a></div><div class="item-meta"><span class="tag tag-website">互動網站</span><span class="tag tag-hakka">哈客網路學院</span></div></div></div>
+  <div class="item"><input type="checkbox" data-cat="speaking"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000064" target="_blank">五腔調—客語唐詩教材（五言、七言絕句與律詩）</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ 480 分</span></div></div></div>
+  <div class="sub-group-label">古文詩詞電子書</div>
+  <div class="item"><input type="checkbox" data-cat="speaking"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/6" target="_blank">客語古文詩詞教材電子書（四縣腔）— 共 90 篇</a></div><div class="item-meta"><span class="tag tag-ebook">電子書</span><span class="tag tag-hours">90 篇</span></div>
+<details class="video-expand">
+<summary><span>展開 90 篇目錄</span><span class="ea">▶</span></summary>
+<div class="vlist">
+<div class="video-item" data-pl-id="ebook" data-vid-idx="0"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/9" target="_blank" class="vid-title">01. 詩經選-蒹葭</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="1"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/11" target="_blank" class="vid-title">02. 詩經選-蘀兮</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="2"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/13" target="_blank" class="vid-title">03. 漁父</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="3"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/17" target="_blank" class="vid-title">04. 飲馬長城窟行</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="4"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/19" target="_blank" class="vid-title">05. 行行重行行</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="5"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/21" target="_blank" class="vid-title">06. 生年不滿百</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="6"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/23" target="_blank" class="vid-title">07. 庭中有奇樹</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="7"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/25" target="_blank" class="vid-title">08. 迢迢牽牛星</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="8"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/27" target="_blank" class="vid-title">09. 樂府詩選-陌上桑</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="9"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/31" target="_blank" class="vid-title">10. 木蘭詩</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="10"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/35" target="_blank" class="vid-title">11. 古詩選-詠史</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="11"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/37" target="_blank" class="vid-title">12. 登鸛雀樓</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="12"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/39" target="_blank" class="vid-title">13. 山居秋暝</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="13"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/41" target="_blank" class="vid-title">14. 過故人莊</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="14"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/43" target="_blank" class="vid-title">15. 觀放白鷹</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="15"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/45" target="_blank" class="vid-title">16. 黃鶴樓送孟浩然之廣陵</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="16"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/47" target="_blank" class="vid-title">17. 贈汪倫</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="17"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/49" target="_blank" class="vid-title">18. 早發白帝城</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="18"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/51" target="_blank" class="vid-title">19. 樂府詩選-長干行</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="19"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/53" target="_blank" class="vid-title">20. 客至</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="20"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/55" target="_blank" class="vid-title">21. 聞官軍收河南河北</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="21"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/57" target="_blank" class="vid-title">22. 古詩選-石壕吏</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="22"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/59" target="_blank" class="vid-title">23. 旅夜書懷</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="23"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/61" target="_blank" class="vid-title">24. 楓橋夜泊</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="24"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/63" target="_blank" class="vid-title">25. 初春小雨</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="25"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/65" target="_blank" class="vid-title">26. 慈烏夜啼</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="26"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/67" target="_blank" class="vid-title">27. 琵琶行并序</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="27"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/75" target="_blank" class="vid-title">28. 雨晴</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="28"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/77" target="_blank" class="vid-title">29. 夜雨寄北</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="29"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/79" target="_blank" class="vid-title">30. 梅</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="30"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/81" target="_blank" class="vid-title">31. 泊船瓜洲</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="31"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/83" target="_blank" class="vid-title">32. 飲湖上初晴後雨</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="32"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/85" target="_blank" class="vid-title">33. 寄黃幾復</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="33"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/87" target="_blank" class="vid-title">34. 蔗田</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="34"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/89" target="_blank" class="vid-title">35. 鹿耳春潮</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="35"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/91" target="_blank" class="vid-title">36. 登赤嵌樓望安平口</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="36"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/93" target="_blank" class="vid-title">37. 虞美人</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="37"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/95" target="_blank" class="vid-title">38. 浪淘沙</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="38"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/97" target="_blank" class="vid-title">39. 念奴嬌</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="39"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/99" target="_blank" class="vid-title">40. 武陵春</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="40"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/101" target="_blank" class="vid-title">41. 一剪梅</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="41"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/103" target="_blank" class="vid-title">42. 清平樂：村居</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="42"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/105" target="_blank" class="vid-title">43. 南鄉子•登京口北固亭有懷</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="43"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/107" target="_blank" class="vid-title">44. 醜奴兒.書博山道中壁</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="44"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/109" target="_blank" class="vid-title">45. 破陣子</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="45"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/111" target="_blank" class="vid-title">46. 沉醉東風 漁父詞</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="46"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/113" target="_blank" class="vid-title">47. 大德歌‧秋</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="47"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/115" target="_blank" class="vid-title">48. 天淨沙：秋思</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="48"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/117" target="_blank" class="vid-title">49. 落梅風 遠浦帆歸</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="49"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/119" target="_blank" class="vid-title">50. 牡丹亭 遊園</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="50"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/121" target="_blank" class="vid-title">51. 論語選-學而時習之</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="51"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/123" target="_blank" class="vid-title">52. 論語選-譬如為山</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="52"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/125" target="_blank" class="vid-title">53. 論語選-三人行</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="53"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/127" target="_blank" class="vid-title">54. 生於憂患死於安樂</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="54"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/129" target="_blank" class="vid-title">55. 禮記：不食嗟來之食</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="55"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/131" target="_blank" class="vid-title">56. 禮記：苛政猛於虎</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="56"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/133" target="_blank" class="vid-title">57. 禮記：大同與小康</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="57"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/137" target="_blank" class="vid-title">58. 燭之武退秦師</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="58"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/141" target="_blank" class="vid-title">59. 橘化為枳</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="59"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/145" target="_blank" class="vid-title">60. 狐假虎威</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="60"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/147" target="_blank" class="vid-title">61. 鄒忌諷齊王納諫</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="61"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/151" target="_blank" class="vid-title">62. 馮諼客孟嘗君</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="62"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/159" target="_blank" class="vid-title">63. 諫逐客書</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="63"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/165" target="_blank" class="vid-title">64. 張釋之執法</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="64"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/167" target="_blank" class="vid-title">65. 出師表</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="65"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/175" target="_blank" class="vid-title">66. 五柳先生傳</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="66"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/177" target="_blank" class="vid-title">67. 桃花源記</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="67"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/181" target="_blank" class="vid-title">68. 與宋元思書</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="68"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/183" target="_blank" class="vid-title">69. 師說</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="69"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/189" target="_blank" class="vid-title">70. 陋室銘</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="70"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/191" target="_blank" class="vid-title">71. 愛蓮說</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="71"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/193" target="_blank" class="vid-title">72. 岳陽樓記</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="72"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/197" target="_blank" class="vid-title">73. 醉翁亭記</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="73"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/201" target="_blank" class="vid-title">74. 記承天寺夜遊</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="74"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/203" target="_blank" class="vid-title">75. 赤壁賦</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="75"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/209" target="_blank" class="vid-title">76. 漆商</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="76"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/213" target="_blank" class="vid-title">77. 朱子治家格言選</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="77"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/215" target="_blank" class="vid-title">78. 項脊軒志</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="78"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/221" target="_blank" class="vid-title">79. 晚遊六橋待月記</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="79"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/223" target="_blank" class="vid-title">80. 湖心亭看雪</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="80"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/225" target="_blank" class="vid-title">81. 左忠毅公逸事</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="81"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/231" target="_blank" class="vid-title">82. 寄弟墨書</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="82"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/237" target="_blank" class="vid-title">83. 為學一首示子姪</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="83"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/241" target="_blank" class="vid-title">84. 兒時記趣</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="84"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/245" target="_blank" class="vid-title">85. 世說新語-華王之優劣</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="85"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/247" target="_blank" class="vid-title">86. 世說新語-王藍田忿食雞子</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="86"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/249" target="_blank" class="vid-title">87. 世說新語-小時了了</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="87"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/251" target="_blank" class="vid-title">88. 空城計</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="88"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/257" target="_blank" class="vid-title">89. 大鼠</a></div>
+<div class="video-item" data-pl-id="ebook" data-vid-idx="89"><input type="checkbox" class="vid-cb"><a href="https://elearning.hakka.gov.tw/hakka/files/cca/ebooks/si/index.html#page/261" target="_blank" class="vid-title">90. 戲術</a></div>
+</div>
+</details>
+</div></div>
+  <div class="sub-group-label">Notion 筆記</div>
+  <div class="item"><input type="checkbox" data-cat="speaking"><div class="item-body"><div class="item-title"><a href="https://app.notion.com/p/_-2cd267d91fa4800bb096e4c78b3bd517?source=copy_link" target="_blank">口說練習 Notion 筆記</a></div><div class="item-meta"><span class="tag tag-notion">Notion</span></div>
+<details class="video-expand">
+<summary><span>展開 23 篇朗讀計畫（依練習順序）</span><span class="ea">▶</span></summary>
+<div class="vlist">
+<div class="video-item" data-pl-id="lang" data-vid-idx="0"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/114/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/114%E5%9C%8B%E5%9B%9B1.mp3" target="_blank" class="vid-title">01. 香絲樹花開（114國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="1"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/114/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/%E5%9C%8B%E4%B8%AD%E5%9B%9B%E7%B8%A37.mp3" target="_blank" class="vid-title">02. 釣魚仔个回憶（114國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="2"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/114/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/114%E5%9C%8B%E5%9B%9B5.mp3" target="_blank" class="vid-title">03. 山薑花（114國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="3"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/114/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/114%E5%9C%8B%E5%9B%9B4.mp3" target="_blank" class="vid-title">04. 行出第一步（114國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="4"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/114/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/114%E5%9C%8B%E5%9B%9B3.mp3" target="_blank" class="vid-title">05. 靚靚个東眼山（114國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="5"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/114/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/114%E5%9C%8B%E5%9B%9B2.mp3" target="_blank" class="vid-title">06. 蟻公行軍（114國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="6"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/113/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/113%E5%9C%8B%E5%9B%9B2.mp3" target="_blank" class="vid-title">07. 長尾鵲（113國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=347" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="7"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/113/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/113%E5%9C%8B%E5%9B%9B7.mp3" target="_blank" class="vid-title">08. 風搓日（113國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=347" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="8"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/113/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/113%E5%9C%8B%E5%9B%9B6.mp3" target="_blank" class="vid-title">09. 客家烏鷯阿醹（113國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=347" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="9"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/113/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/113%E5%9C%8B%E5%9B%9B5(0821%E6%96%B0).mp3" target="_blank" class="vid-title">10. 金蘋果（113國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=347" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="10"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/113/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/113%E5%9C%8B%E4%B8%AD%E5%9B%9B4(1105%E6%96%B0).mp3" target="_blank" class="vid-title">11. 蔥仔（113國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=347" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="11"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/113/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E4%B8%AD/113%E5%9C%8B%E5%9B%9B3(1028%E6%96%B0).mp3" target="_blank" class="vid-title">12. 幸福个味緒（113國中）</a><a href="https://jen-pin.com.tw/news_intro.php?id=347" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="12"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/114/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E5%B0%8F/114%E5%B0%8F%E5%9B%9B3.mp3" target="_blank" class="vid-title">13. 今年个避暑（114國小）</a><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="13"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/114/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E5%B0%8F/114%E5%9C%8B%E5%B0%8F%E5%9B%9B%E7%B8%A35.mp3" target="_blank" class="vid-title">14. 一頭大番檨樹（114國小）</a><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="14"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/114/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E5%B0%8F/114%E5%B0%8F%E5%9B%9B6%27.mp3" target="_blank" class="vid-title">15. 水粄仔（114國小）</a><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="15"><input type="checkbox" class="vid-cb"><a href="https://jen-pin.com.tw/FilesCkeditor/NewsInfo/files/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF_%E8%AA%9E%E6%96%87%E7%AB%B6%E8%B3%BD/114/%E9%9F%B3%E6%AA%94/%E5%9C%8B%E5%B0%8F/114%E5%B0%8F%E5%9B%9B8.mp3" target="_blank" class="vid-title">16. 自由（114國小）</a><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="16"><input type="checkbox" class="vid-cb"><span class="vid-title">17. 暗房（114國中）</span><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="17"><input type="checkbox" class="vid-cb"><span class="vid-title">18. 一條熟絡个山路（114國中）</span><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="18"><input type="checkbox" class="vid-cb"><span class="vid-title">19. 莊頭个王爺廟（113國中）</span><a href="https://jen-pin.com.tw/news_intro.php?id=347" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="19"><input type="checkbox" class="vid-cb"><span class="vid-title">20. 噓！恬恬聽（114國小）</span><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="20"><input type="checkbox" class="vid-cb"><span class="vid-title">21. 都市大樹下个原生態（114國小）</span><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="21"><input type="checkbox" class="vid-cb"><span class="vid-title">22. 去看阿公阿婆（114國小）</span><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+<div class="video-item" data-pl-id="lang" data-vid-idx="22"><input type="checkbox" class="vid-cb"><span class="vid-title">23. 走當晝（114國小）</span><a href="https://jen-pin.com.tw/news_intro.php?id=425" target="_blank" class="vid-dur" style="text-decoration:none">文章</a></div>
+</div>
+</details>
+</div></div>
+</div>
+</details>
+</div>
+
+<!-- ── 6. 典故 ── -->
+<div class="category cat-idioms">
+<details>
+<summary><span class="cat-icon">📚</span><span class="cat-title">客語典故 / 文化短影音（范文芳老師）</span><span class="cat-count" id="cnt-idioms"></span><span class="cat-arrow">▶</span></summary>
+<div class="item-list" data-cat="idioms">
+  <div class="sub-group-label">哈客網路學院 — 典故短影音</div>
+  <div class="item"><input type="checkbox" data-cat="idioms"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000633" target="_blank">「窩」在哪裡？— 客語「竇」、華語「巢」與「窩」的關聯</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ ~5 分</span></div></div></div>
+  <div class="item"><input type="checkbox" data-cat="idioms"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000632" target="_blank">地名超直接！— 地名音譯的有趣典故（美濃、竹東、奮起湖）</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ ~5 分</span></div></div></div>
+  <div class="item"><input type="checkbox" data-cat="idioms"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000631" target="_blank">「著」了什麼魔？— 「著」字的千變萬化用法</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ ~5 分</span></div></div></div>
+  <div class="item"><input type="checkbox" data-cat="idioms"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000630" target="_blank">霸總文學 — 客語裡的「愛」（要）與「惜」（愛）</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ ~5 分</span></div></div></div>
+  <div class="item"><input type="checkbox" data-cat="idioms"><div class="item-body"><div class="item-title"><a href="https://elearning.hakka.gov.tw/info/10000629" target="_blank">什麼「鳥」？— 漢字裡「鳥」字的字源探討</a></div><div class="item-meta"><span class="tag tag-hakka">哈客網路學院</span><span class="tag tag-hours">⏱ ~5 分</span></div></div></div>
+</div>
+</details>
+</div>
+
+</main>
+<div class="btn-row">
+  <button class="sync-btn" onclick="syncExport()">📋 複製進度連結（跨裝置同步）</button>
+  <button class="reset-btn" onclick="resetAll()">重置所有進度</button>
+</div>
+<div id="toast" class="toast"></div>
+<footer><p>客語認證備考材料清單 · 建立於 2026-06-09 · 進度自動儲存於瀏覽器</p></footer>
+
+<script>
+const STORAGE_KEY = 'hakka-v3';
+
+const PLAYLISTS = [
+  { id:'pl1', plId:'PLa4jdY-zUDqrcxgIzAOTIyAYbb8O1SyTb', totalSecs:7658, note:null,
+    videos:[
+      ['1. 增廣昔時賢文','13:22','mb6ZQaqh3mc'],
+      ['2. 山歌篇 1','12:38','x5UmtfgU5nk'],
+      ['3. 山歌篇 2','11:05','ZBc5xuV1sEU'],
+      ['4. 童謠篇','12:45','uyqh6oHcWy8'],
+      ['5. 詩選篇 1','9:48','xNT0ECHOWzA'],
+      ['6. 詩選篇 2','11:32','orokXb1pu8Y'],
+      ['7. 詩選篇 3','10:35','nMJ3irgo_kc'],
+      ['8. 詩選篇 4','11:21','6lwEHfe4Mfc'],
+      ['9. 詩選篇 5','8:18','0dwbm7xDde0'],
+      ['10. 詩選篇 6','8:20','o-_Gprr19w8'],
+      ['11. 諺語篇 1','8:21','ObCNX512nY0'],
+      ['12. 諺語篇 2','9:33','S-PNZs6wes4'],
+    ]},
+  { id:'pl2', plId:'PLa4jdY-zUDqpPR9VYBh3L03IfJ-N5YtOw', totalSecs:518, note:'（截取前 7 支，播放清單可能含更多）',
+    videos:[
+      ['咚咚咚咚','0:16','7CtPFEyVKm8'],
+      ['流流流流','0:20','6_5FTB54WFM'],
+      ['叨叨叨叨—形容話多','0:27','YZw-bcUkBPY'],
+      ['喃喃喃喃—囉嗦不停','2:30','FXS4oR8GRaE'],
+      ['唸唸唸唸—說個不停','1:48','NEo4Pc7w_fA'],
+      ['唧唧唧唧—蟲鳴鳥鳴','2:12','MGlnCght62M'],
+      ['汀汀汀汀—濕物滴水','1:05','RIX0kiozSoM'],
+    ]},
+  { id:'pl3', plId:'PLzgAweye8Ud7R6dwzBFeg-x6xBlT6S2XH', totalSecs:3695, note:null,
+    videos:[
+      ['齊頭式平等','2:03','oq7JRTJR1xA'],
+      ['殺雞取卵','2:03','T0YKj-7zeRs'],
+      ['家家有本難念的經','2:04','eWnqstJPZYY'],
+      ['子不嫌母醜，狗不嫌家貧','2:03','bll9EwDO5oc'],
+      ['打鐵毋會，損炭盡會','2:03','cwIYDv_l898'],
+      ['不經一事，不長一智','2:04','3oG7GSPK75g'],
+      ['老王賣瓜，自賣自誇','2:04','2Ub46VTSVa4'],
+      ['毋關雞？怪鷂婆','2:03','ZwZGZWxvuGM'],
+      ['人腳底有肥','2:03','88dLRsUZLI4'],
+      ['緊惜緊孤盲，緊惱緊婆娑','2:03','cThmrCIfuz0'],
+      ['等水難滾，等子難大','2:03','doFyKISlWuk'],
+      ['買馬容易，置鞍難','2:03','MCOoPRen1qI'],
+      ['打虎捉賊親兄弟；出陣相戰父子兵','2:03','5ZQBpVVV1gk'],
+      ['鬼生鬚，人鬥个','2:03','r7HNhyfdCP4'],
+      ['矮凳仔會徑死人','2:03','5bZwKgTUJSk'],
+      ['人有相像，物有相同','2:03','vEDPW9CNh-4'],
+      ['拆東牆，補西壁','2:03','ATN7A2gO3g4'],
+      ['扯衫裾，補背囊','2:03','vpKF4tPKC9A'],
+      ['三日毋食青／三日毋食蟲','2:03','cDxAom0GenI'],
+      ['囥酒會紅，囥病會重','2:03','6uP5XgHP3l8'],
+      ['降子身，無降子心','2:03','aQOQxpzZb8E'],
+      ['臨崖勒馬收韁晚，船到江心補漏遲','2:03','ml7hlrw2vwg'],
+      ['看人挑擔毋知重，看人賺錢目珠紅','2:03','q1u-O5_3fVc'],
+      ['毋經冬寒，哪知春暖','2:03','rAkc8Msz5vM'],
+      ['三日毋食，臭餿飯','2:03','f6bdBeBJmH8'],
+      ['別人个腳髀挼索仔，毋知痛','2:03','1DYl18wWVsw'],
+      ['別人个龍床，毋當自家个狗竇','2:04','gPV0RWXWNgg'],
+      ['整衫較難過做衫','2:04','v2HAIDxt19o'],
+      ['有心留到臭，沒心留一晝','2:03','1nga_A6JbrQ'],
+      ['白髮人送黑髮人','2:03','thi10rGFdgo'],
+    ]},
+  { id:'pl4', plId:'PLA0wxie8uECoVAu3PrFkQ5t831t2oDSeu', totalSecs:3219, note:null,
+    videos:[
+      ['客家話歇後語 Xiehouyu in Hakka','8:32','zDtSLwPAvUo'],
+      ['形容詞和它們的相反詞','6:39','fyfns4mG0D0'],
+      ['八月半談「半」','5:11','2dYniA68Hog'],
+      ['鬼節談「鬼」','6:18','MWUeOOmHScU'],
+      ['有關食物的形容詞','4:44','V0HstkT9GkI'],
+      ['客家話的顏色形容詞','5:32','FmvdNGmIL0U'],
+      ['香港客家人如何稱呼小孩子','4:41','pLZ99L4pPRw'],
+      ['頭部和頭部的動作','3:26','9USG1Yt40-A'],
+      ['臉部五官的說法','4:07','ILyLgNqDhSw'],
+      ['客家話「怕、惶、驚」的用法','4:29','5ke-2EFUMFQ'],
+    ]},
+  { id:'pl5', plId:'PLA0wxie8uECqeOQeT9j707wQTMC1m36vc', totalSecs:1718, note:null,
+    videos:[
+      ['常見的花 1 Common Flowers 1','1:16','TH0AGrNx-k0'],
+      ['方向 Directions','1:23','kDS5tbypTZU'],
+      ['水果 Fruit','0:49','v4ysYxvyHJE'],
+      ['語言的誤會 A Misunderstanding','2:11','Xi_IPLBiTug'],
+      ['今晚吃甚麼菜 Dishes for Dinner','1:14','PPhBLIsLRf8'],
+      ['問路 Asking the Way','1:04','TtI-LpwFyDs'],
+      ['美麗的花 Beautiful Flowers','1:41','SIqkmIe2EKo'],
+      ['常見的花 2 Common Flowers 2','1:16','JY66aC6tyoA'],
+      ['瓜菜類 1 Vegetables 1','1:37','6ZZbRXZz9mU'],
+      ['瓜菜類 2 Vegetables 2','1:17','am091gLYgUA'],
+      ['瓜菜類 3 Vegetables 3','1:24','c3pRxN6IZNU'],
+      ['身體部分 1 Body Parts 1','3:10','phkzteUJoz4'],
+      ['身體部分 2 Body Parts 2','3:33','fkfD0_aKaK0'],
+      ['身體部分 3 Body Parts 3','2:45','D1p3QIpoOu8'],
+      ['無脊椎動物 Invertebrates','1:59','hx4xKZcA8ow'],
+      ['有脊椎動物 Vertebrate Animals','1:59','jDleBNFZo50'],
+    ]},
+  { id:'pl6', plId:'PLa4jdY-zUDqqcsrZdM5hddLOLXKIuI6bZ', totalSecs:4556, note:null,
+    videos:[
+      ['文化創新故事—茶','6:43','Qls_TS5SNKE'],
+      ['文化創新故事—米食樂','7:29','g8esUszVFVc'],
+      ['英雄毋驚貓仔（英雄不怕貓）','5:58','2dWuNDRLhl0'],
+      ['學講花蓼个人（學說謊的人）','6:24','B9MaKOMLspc'],
+      ['揚蝶仔新衫（蝴蝶新衣）','6:07','BCK7JifT8iU'],
+      ['第一百隻人客（第一百個客人）','6:15','aRZ86jRWevQ'],
+      ['跳舞啊老鼠（跳舞吧老鼠）','5:42','jjF62aVpilI'],
+      ['巨人同春天（巨人與春天）','5:42','Bjxxv7hvK9E'],
+      ['天河玩具島（銀河玩具島）','5:32','VS5Uw_PlGU0'],
+      ['盡快樂个人（最快樂的人）','7:01','9dmXLBHf4bo'],
+      ['嘟寶愛睡目','4:55','fvbJahQUTpI'],
+      ['趣味精典故事—醜小鴨','8:08','GM1kZR_Xa60'],
+    ]},
+  { id:'pl7', plId:'PLwUn4G1P9Ud2Z0RoJSWKhQ0uF3XcvRXAL', totalSecs:2584, note:null,
+    videos:[
+      ['爛傘（海陸腔）','3:34','cKQ301IKjwk'],
+      ['爛傘（四縣腔）','3:34','l5ihJm5wbqI'],
+      ['臭臉（四縣腔）','3:36','XgR-cWeBP4A'],
+      ['臭臉（海陸腔）','3:36','1khI_bcZ7ZY'],
+      ['唬爛（海陸腔）','3:39','qGmqFd788uE'],
+      ['唬爛（四縣腔）','3:39','-OFdY-xG8mw'],
+      ['命大的蟑螂（海陸腔）','3:39','RdoRxx2yW3A'],
+      ['命大的蟑螂（四縣腔）','3:39','9Ete31HXLGg'],
+      ['游泳（海陸腔）','3:34','2XE8RsBkupg'],
+      ['游泳（四縣腔）','3:34','n7TlcB4z9f0'],
+      ['夜晚暴食暴龍（海陸腔）','3:30','ieoTSby-7d8'],
+      ['夜晚暴食暴龍（四縣腔）','3:30','EYNstYAQHi8'],
+    ]},
+];
+
+function durToSecs(d){const p=d.split(':').map(Number);return p.length===2?p[0]*60+p[1]:p[0]*3600+p[1]*60+p[2];}
+function secToMS(s){const m=Math.floor(s/60),sec=s%60;return`${m} 分 ${String(sec).padStart(2,'0')} 秒`;}
+function secToHMS(s){const h=Math.floor(s/3600),m=Math.floor(s%3600/60),sec=s%60;return h>0?`${h} 小時 ${m} 分 ${String(sec).padStart(2,'0')} 秒`:`${m} 分 ${String(sec).padStart(2,'0')} 秒`;}
+function getState(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch{return {};}}
+function saveState(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}
+
+function getItemKey(cb){
+  const item=cb.closest('.item');
+  const list=item.closest('.item-list');
+  const items=[...list.querySelectorAll(':scope>.item')];
+  return`${cb.dataset.cat}-${items.indexOf(item)}`;
+}
+
+function renderPlaylists(){
+  PLAYLISTS.forEach(pl=>{
+    const wrapper=document.querySelector(`[data-pl-id="${pl.id}"]`);
+    if(!wrapper) return;
+    const body=wrapper.querySelector('.item-body');
+
+    const details=document.createElement('details');
+    details.className='video-expand';
+    const noteHtml=pl.note?`<span class="pl-note">${pl.note}</span>`:'';
+    details.innerHTML=`<summary><span>展開 ${pl.videos.length} 支影片</span>${noteHtml}<span class="vid-prog" id="${pl.id}-prog">0/${pl.videos.length} 已看</span><span class="ea">▶</span></summary><div class="vlist" id="${pl.id}-vlist"></div>`;
+    body.appendChild(details);
+
+    const vlist=details.querySelector('.vlist');
+    pl.videos.forEach(([title,dur,vid],idx)=>{
+      const url=`https://www.youtube.com/watch?v=${vid}&list=${pl.plId}`;
+      const div=document.createElement('div');
+      div.className='video-item';
+      div.dataset.plId=pl.id;
+      div.dataset.vidIdx=idx;
+      div.dataset.secs=durToSecs(dur);
+      div.innerHTML=`<input type="checkbox" class="vid-cb"><a href="${url}" target="_blank" class="vid-title">${title}</a><span class="vid-dur">${dur}</span>`;
+      vlist.appendChild(div);
+    });
+  });
+}
+
+function restoreAndBind(){
+  const s=getState();
+  document.querySelectorAll('.item>input[type="checkbox"]').forEach(cb=>{
+    const k=getItemKey(cb);
+    if(s[k]){cb.checked=true;cb.closest('.item').classList.add('done');}
+    cb.addEventListener('change',()=>{
+      const st=getState();
+      const key=getItemKey(cb);
+      if(cb.checked){st[key]=true;cb.closest('.item').classList.add('done');}
+      else{delete st[key];cb.closest('.item').classList.remove('done');}
+      saveState(st);
+      updateCatCount(cb.dataset.cat);
+      updateGlobal();
+    });
+  });
+  document.querySelectorAll('.vid-cb').forEach(cb=>{
+    const item=cb.closest('.video-item');
+    const k=`vid-${item.dataset.plId}-${item.dataset.vidIdx}`;
+    if(s[k]){cb.checked=true;item.classList.add('vid-done');}
+    cb.addEventListener('change',()=>{
+      const st=getState();
+      if(cb.checked){st[k]=true;item.classList.add('vid-done');}
+      else{delete st[k];item.classList.remove('vid-done');}
+      saveState(st);
+      updatePlProg(item.dataset.plId);
+      updateGlobal();
+    });
+  });
+}
+
+function updatePlProg(plId){
+  const pl=PLAYLISTS.find(p=>p.id===plId);
+  if(!pl) return;
+  const s=getState();
+  let cnt=0,secs=0;
+  pl.videos.forEach(([,dur],i)=>{if(s[`vid-${plId}-${i}`]){cnt++;secs+=durToSecs(dur);}});
+  const el=document.getElementById(`${plId}-prog`);
+  if(el) el.textContent=`${cnt}/${pl.videos.length} 已看 · ${secToMS(secs)}`;
+}
+
+function updateCatCount(cat){
+  const list=document.querySelector(`.item-list[data-cat="${cat}"]`);
+  if(!list) return;
+  const boxes=list.querySelectorAll(':scope>.item>input[type="checkbox"]');
+  const done=[...boxes].filter(b=>b.checked).length;
+  const el=document.getElementById(`cnt-${cat}`);
+  if(el) el.textContent=`${done}/${boxes.length}`;
+}
+
+function updateGlobal(){
+  const iCBs=document.querySelectorAll('.item>input[type="checkbox"]');
+  const vCBs=document.querySelectorAll('.vid-cb');
+  const total=iCBs.length+vCBs.length;
+  const done=[...iCBs].filter(b=>b.checked).length+[...vCBs].filter(b=>b.checked).length;
+  let watchedSecs=0;
+  document.querySelectorAll('.vid-cb:checked').forEach(cb=>{
+    watchedSecs+=parseInt(cb.closest('.video-item').dataset.secs||0);
+  });
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('global-bar').style.width=pct+'%';
+  document.getElementById('global-text').textContent=`${done} / ${total} 項已完成（${pct}%）`;
+  document.getElementById('yt-watched-chip').textContent=`✅ 已看 ${secToHMS(watchedSecs)}`;
+  ['vocab','phonics','exam','writing','speaking','idioms'].forEach(updateCatCount);
+  PLAYLISTS.forEach(pl=>updatePlProg(pl.id));
+}
+
+function resetAll(){
+  if(!confirm('確定要重置所有進度嗎？')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb=>{cb.checked=false;});
+  document.querySelectorAll('.item.done').forEach(el=>el.classList.remove('done'));
+  document.querySelectorAll('.video-item.vid-done').forEach(el=>el.classList.remove('vid-done'));
+  updateGlobal();
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+function syncExport(){
+  const s=getState();
+  const keys=Object.keys(s).filter(k=>s[k]);
+  if(!keys.length){showToast('還沒有打勾的項目');return;}
+  const encoded=btoa(unescape(encodeURIComponent(keys.join(','))));
+  const url=location.href.split('?')[0]+'?s='+encoded;
+  navigator.clipboard.writeText(url).then(()=>{
+    showToast('✅ 已複製！在另一台裝置開啟這個連結即可同步進度');
+  }).catch(()=>{
+    prompt('複製這個連結到另一台裝置：',url);
+  });
+}
+
+function syncImport(){
+  try{
+    const params=new URLSearchParams(location.search);
+    if(!params.has('s')) return 0;
+    const raw=decodeURIComponent(escape(atob(params.get('s'))));
+    const keys=raw.split(',').filter(Boolean);
+    if(!keys.length) return 0;
+    const st=getState();
+    keys.forEach(k=>{if(k) st[k]=true;});
+    saveState(st);
+    history.replaceState(null,'',location.pathname);
+    return keys.length;
+  }catch(e){return 0;}
+}
+
+renderPlaylists();
+const _imported=syncImport();
+restoreAndBind();
+updateGlobal();
+if(_imported) setTimeout(()=>showToast(`✅ 已從連結匯入 ${_imported} 項進度！`),200);
+</script>
+</body>
+</html>
