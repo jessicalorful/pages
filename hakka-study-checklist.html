@@ -94,6 +94,82 @@ main{max-width:900px;margin:0 auto 3rem;padding:0 1rem}
 .toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(16px);background:#111827;color:#fff;border-radius:10px;padding:.65rem 1.3rem;font-size:.85rem;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:300;max-width:88vw;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.3)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2rem}
+
+/* ── 詞彙進度儀表板 ── */
+.vocab-dash{background:#fff;max-width:900px;margin:0 auto 1rem;border-radius:12px;box-shadow:var(--shadow);padding:1.25rem 1.5rem}
+.vd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.85rem;flex-wrap:wrap}
+.vd-title{font-size:1.05rem;font-weight:700;color:var(--primary-dark)}
+.vd-sub{font-size:.78rem;color:var(--text-soft);margin-top:2px}
+.vd-overall-wrap{text-align:right;flex-shrink:0}
+.vd-big-pct{font-size:2rem;font-weight:800;color:var(--primary);display:block;line-height:1}
+.vd-count-text{font-size:.74rem;color:var(--text-soft)}
+.vd-bar-row{margin-bottom:.95rem}
+.vd-bar-bg,.vd-stage-bar-bg{background:#E5E7EB;border-radius:99px;overflow:hidden}
+.vd-bar-bg{height:10px}
+.vd-stage-bar-bg{height:7px}
+.vd-bar-fill{height:10px;background:linear-gradient(90deg,var(--primary),#A78BFA);border-radius:99px;transition:width .4s;width:0%}
+.vd-stage-bar{height:7px;border-radius:99px;background:var(--c,#6B46C1);transition:width .4s;width:0%}
+.vd-stages{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
+.vd-stage{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.vd-stage-emoji{font-size:1.1rem;width:1.5rem;text-align:center;flex-shrink:0}
+.vd-stage-info{flex:1;min-width:140px}
+.vd-stage-name{font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:3px}
+.vd-stage-pct{font-size:.82rem;font-weight:700;color:var(--text-soft);min-width:2.8rem;text-align:right;flex-shrink:0}
+.vd-stage-update{display:flex;gap:.32rem;align-items:center}
+.vd-input{width:96px;padding:.28rem .42rem;border:1px solid var(--border);border-radius:6px;font-size:.8rem;color:var(--text)}
+.vd-input:focus{outline:none;border-color:var(--primary)}
+.vd-btn{padding:.28rem .62rem;background:var(--primary);color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
+.vd-btn:hover{background:var(--primary-dark)}
+.vd-timeline{border-top:1px solid var(--border);padding-top:.85rem}
+.vd-tl-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.55rem;flex-wrap:wrap;gap:.4rem}
+.vd-tl-label{font-size:.82rem;font-weight:700;color:var(--text)}
+.vd-tl-start{display:flex;align-items:center;gap:.32rem;font-size:.74rem;color:var(--text-soft)}
+#vd-start-date{border:1px solid var(--border);border-radius:5px;padding:.15rem .32rem;font-size:.74rem;color:var(--text)}
+.vd-weeks{display:grid;grid-template-columns:repeat(13,1fr);gap:3px}
+.vd-week{border-radius:6px;padding:.28rem .08rem;text-align:center;background:#F9FAFB;border:2px solid transparent;transition:all .2s}
+.vd-week.current{border-color:var(--primary);box-shadow:0 0 0 2px rgba(107,70,193,.18)}
+.vd-week.past{opacity:.5}
+.vd-wk-num{display:block;font-size:.6rem;color:var(--text-soft);font-weight:600}
+.vd-wk-stage{display:block;font-size:.56rem;font-weight:700;margin-top:1px}
+
+/* ── 番茄鐘 ── */
+.pomo-widget{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:228px;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.16);border:1px solid var(--border)}
+.pomo-toggle{display:flex;align-items:center;gap:.42rem;padding:.6rem .85rem;cursor:pointer;background:var(--primary);color:#fff;user-select:none;border-radius:14px 14px 0 0}
+.pomo-toggle-label{font-size:.84rem;font-weight:700;flex:1}
+.pomo-toggle-time{font-size:.78rem;font-variant-numeric:tabular-nums;opacity:.9;font-weight:600}
+.pomo-caret{font-size:.58rem;opacity:.75}
+.pomo-body{padding:.82rem}
+.pomo-select{width:100%;padding:.3rem .42rem;border:1px solid var(--border);border-radius:6px;font-size:.77rem;color:var(--text);background:#fff;margin-bottom:.6rem}
+.pomo-select:focus{outline:none;border-color:var(--primary)}
+.pomo-modes{display:flex;gap:.28rem;margin-bottom:.72rem}
+.pomo-mode{flex:1;padding:.26rem 0;border:1px solid var(--border);border-radius:5px;background:#fff;font-size:.68rem;color:var(--text-soft);cursor:pointer;transition:all .15s}
+.pomo-mode.active{background:var(--primary-light);border-color:var(--primary);color:var(--primary);font-weight:700}
+.pomo-ring-wrap{position:relative;display:flex;justify-content:center;align-items:center;margin-bottom:.72rem;height:120px}
+.pomo-svg{transform:rotate(-90deg)}
+.pomo-ring-track{fill:none;stroke:#E5E7EB;stroke-width:8}
+.pomo-ring-prog{fill:none;stroke:var(--primary);stroke-width:8;stroke-linecap:round;stroke-dasharray:339.3;stroke-dashoffset:0;transition:stroke-dashoffset .9s linear}
+.pomo-time-display{position:absolute;font-size:1.42rem;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.pomo-controls{display:flex;gap:.42rem;margin-bottom:.75rem}
+.pomo-ctrl-btn{flex:1;padding:.4rem 0;border:none;border-radius:7px;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .15s}
+.pomo-ctrl-btn.start{background:var(--primary);color:#fff}
+.pomo-ctrl-btn.start:hover{background:var(--primary-dark)}
+.pomo-ctrl-btn.reset{background:#F3F4F6;color:var(--text-soft)}
+.pomo-ctrl-btn.reset:hover{background:#E5E7EB;color:var(--text)}
+.pomo-log{border-top:1px solid var(--border);padding-top:.6rem}
+.pomo-log-head{font-size:.74rem;font-weight:700;color:var(--text);margin-bottom:.38rem}
+.pomo-log-empty{font-size:.7rem;color:var(--text-soft);text-align:center;padding:.38rem 0}
+.pomo-log-item{display:flex;align-items:center;gap:.32rem;padding:.23rem 0;border-bottom:1px solid #F9FAFB;font-size:.7rem}
+.pomo-log-item:last-child{border-bottom:none}
+.pomo-log-time{color:var(--text-soft);flex-shrink:0;font-variant-numeric:tabular-nums}
+.pomo-log-topic{flex:1;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.68rem}
+.pomo-log-dur{font-weight:700;color:var(--primary);flex-shrink:0}
+.pomo-log-total{margin-top:.38rem;font-size:.7rem;color:var(--text-soft);text-align:right;font-weight:600}
+
+@media(max-width:600px){
+  .vd-stage-update{width:100%}
+  .vd-weeks{grid-template-columns:repeat(7,1fr)}
+  .pomo-widget{bottom:.75rem;right:.75rem;width:208px}
+}
 </style>
 </head>
 <body>
@@ -115,6 +191,80 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
     <div class="progress-text" id="global-text">計算中…</div>
   </div>
   <span class="deadline-chip">🗓 截止：2026 年 10 月</span>
+</div>
+
+<!-- ── 詞彙進度儀表板 ── -->
+<div class="vocab-dash" id="vocab-dash">
+  <div class="vd-head">
+    <div>
+      <div class="vd-title">📊 Quizlet 詞彙進度儀表板</div>
+      <div class="vd-sub">4 個學習階段 · 共 3,829 詞 · 13 週計畫</div>
+    </div>
+    <div class="vd-overall-wrap">
+      <span class="vd-big-pct" id="vd-big-pct">0%</span>
+      <span class="vd-count-text" id="vd-count-text">0 / 15,316 詞次</span>
+    </div>
+  </div>
+  <div class="vd-bar-row">
+    <div class="vd-bar-bg"><div class="vd-bar-fill" id="vd-overall-bar"></div></div>
+  </div>
+  <div class="vd-stages">
+    <div class="vd-stage">
+      <span class="vd-stage-emoji">🔊</span>
+      <div class="vd-stage-info">
+        <div class="vd-stage-name">第一階段 · 發音練習</div>
+        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-1" style="--c:#6B46C1"></div></div>
+      </div>
+      <span class="vd-stage-pct" id="vd-spct-1">0%</span>
+      <div class="vd-stage-update">
+        <input type="number" class="vd-input" id="vd-sin-1" min="0" max="3829" placeholder="已掌握詞數" onkeydown="if(event.key==='Enter')updateVocabStage(1)">
+        <button class="vd-btn" onclick="updateVocabStage(1)">更新</button>
+      </div>
+    </div>
+    <div class="vd-stage">
+      <span class="vd-stage-emoji">💡</span>
+      <div class="vd-stage-info">
+        <div class="vd-stage-name">第二階段 · 意思練習</div>
+        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-2" style="--c:#2563EB"></div></div>
+      </div>
+      <span class="vd-stage-pct" id="vd-spct-2">0%</span>
+      <div class="vd-stage-update">
+        <input type="number" class="vd-input" id="vd-sin-2" min="0" max="3829" placeholder="已掌握詞數" onkeydown="if(event.key==='Enter')updateVocabStage(2)">
+        <button class="vd-btn" onclick="updateVocabStage(2)">更新</button>
+      </div>
+    </div>
+    <div class="vd-stage">
+      <span class="vd-stage-emoji">✍️</span>
+      <div class="vd-stage-info">
+        <div class="vd-stage-name">第三階段 · 字形+拼音</div>
+        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-3" style="--c:#059669"></div></div>
+      </div>
+      <span class="vd-stage-pct" id="vd-spct-3">0%</span>
+      <div class="vd-stage-update">
+        <input type="number" class="vd-input" id="vd-sin-3" min="0" max="3829" placeholder="已掌握詞數" onkeydown="if(event.key==='Enter')updateVocabStage(3)">
+        <button class="vd-btn" onclick="updateVocabStage(3)">更新</button>
+      </div>
+    </div>
+    <div class="vd-stage">
+      <span class="vd-stage-emoji">🎓</span>
+      <div class="vd-stage-info">
+        <div class="vd-stage-name">第四階段 · 活用練習</div>
+        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-4" style="--c:#D97706"></div></div>
+      </div>
+      <span class="vd-stage-pct" id="vd-spct-4">0%</span>
+      <div class="vd-stage-update">
+        <input type="number" class="vd-input" id="vd-sin-4" min="0" max="3829" placeholder="已掌握詞數" onkeydown="if(event.key==='Enter')updateVocabStage(4)">
+        <button class="vd-btn" onclick="updateVocabStage(4)">更新</button>
+      </div>
+    </div>
+  </div>
+  <div class="vd-timeline">
+    <div class="vd-tl-head">
+      <span class="vd-tl-label">📅 13 週計畫時程</span>
+      <div class="vd-tl-start">開始日：<input type="date" id="vd-start-date" onchange="onStartDateChange()"></div>
+    </div>
+    <div class="vd-weeks" id="vd-weeks"></div>
+  </div>
 </div>
 
 <main>
@@ -475,6 +625,51 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
 <div id="toast" class="toast"></div>
 <footer><p>客語認證備考材料清單 · 建立於 2026-06-09 · 進度自動儲存於瀏覽器</p></footer>
 
+<!-- ── 番茄鐘 ── -->
+<div class="pomo-widget" id="pomo-widget">
+  <div class="pomo-toggle" onclick="togglePomo()">
+    <span>🍅</span>
+    <span class="pomo-toggle-label">番茄鐘</span>
+    <span class="pomo-toggle-time" id="pomo-toggle-time"></span>
+    <span class="pomo-caret" id="pomo-caret">▲</span>
+  </div>
+  <div class="pomo-body" id="pomo-body">
+    <select class="pomo-select" id="pomo-topic">
+      <option value="">選擇學習項目…</option>
+      <option>🔊 第一階段：發音練習</option>
+      <option>💡 第二階段：意思練習</option>
+      <option>✍️ 第三階段：字形+拼音</option>
+      <option>🎓 第四階段：活用練習</option>
+      <option>🎬 詞彙（YouTube 影片）</option>
+      <option>🔤 拼音基礎</option>
+      <option>🎯 考試策略</option>
+      <option>✏️ 書寫/作文</option>
+      <option>🗣️ 口說練習</option>
+      <option>📚 客語典故</option>
+    </select>
+    <div class="pomo-modes">
+      <button class="pomo-mode active" data-mins="25" onclick="setPomoMode(this)">25分鐘</button>
+      <button class="pomo-mode" data-mins="5" onclick="setPomoMode(this)">短休5分</button>
+      <button class="pomo-mode" data-mins="15" onclick="setPomoMode(this)">長休15分</button>
+    </div>
+    <div class="pomo-ring-wrap">
+      <svg class="pomo-svg" viewBox="0 0 120 120" width="120" height="120">
+        <circle class="pomo-ring-track" cx="60" cy="60" r="54"/>
+        <circle class="pomo-ring-prog" id="pomo-ring-prog" cx="60" cy="60" r="54"/>
+      </svg>
+      <div class="pomo-time-display" id="pomo-time-display">25:00</div>
+    </div>
+    <div class="pomo-controls">
+      <button class="pomo-ctrl-btn start" id="pomo-start-btn" onclick="togglePomoTimer()">▶ 開始</button>
+      <button class="pomo-ctrl-btn reset" onclick="resetPomoTimer()">↺ 重置</button>
+    </div>
+    <div class="pomo-log">
+      <div class="pomo-log-head">📝 今日紀錄</div>
+      <div id="pomo-log-list"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 const STORAGE_KEY = 'hakka-v3';
 
@@ -755,6 +950,209 @@ const _imported=syncImport();
 restoreAndBind();
 updateGlobal();
 if(_imported) setTimeout(()=>showToast(`✅ 已從連結匯入 ${_imported} 項進度！`),200);
+
+// ── 詞彙進度儀表板 ─────────────────────────────────────
+const VD_KEY='hakka-vocab-v1';
+const VOCAB_TOTAL=3829;
+
+function getVocabSt(){try{return JSON.parse(localStorage.getItem(VD_KEY))||{};}catch{return{};}}
+function saveVocabSt(s){localStorage.setItem(VD_KEY,JSON.stringify(s));}
+
+function updateVocabStage(n){
+  const inp=document.getElementById(`vd-sin-${n}`);
+  const val=Math.max(0,Math.min(VOCAB_TOTAL,parseInt(inp.value)||0));
+  inp.value=val;
+  const s=getVocabSt();
+  s[`stage${n}`]=val;
+  saveVocabSt(s);
+  renderVocabDash();
+  showToast(`✅ 第${['一','二','三','四'][n-1]}階段已更新：${val.toLocaleString()} / ${VOCAB_TOTAL.toLocaleString()} 詞`);
+}
+
+function renderVocabDash(){
+  const s=getVocabSt();
+  const stages=[1,2,3,4].map(n=>s[`stage${n}`]||0);
+  const total=stages.reduce((a,b)=>a+b,0);
+  const maxTotal=VOCAB_TOTAL*4;
+  const pct=total?Math.round(total/maxTotal*100):0;
+
+  const bar=document.getElementById('vd-overall-bar');
+  if(bar) bar.style.width=pct+'%';
+  const bigPct=document.getElementById('vd-big-pct');
+  if(bigPct) bigPct.textContent=pct+'%';
+  const countText=document.getElementById('vd-count-text');
+  if(countText) countText.textContent=`${total.toLocaleString()} / ${maxTotal.toLocaleString()} 詞次`;
+
+  stages.forEach((count,i)=>{
+    const n=i+1;
+    const p=count?Math.round(count/VOCAB_TOTAL*100):0;
+    const sbar=document.getElementById(`vd-sbar-${n}`);
+    if(sbar) sbar.style.width=p+'%';
+    const spct=document.getElementById(`vd-spct-${n}`);
+    if(spct) spct.textContent=p+'%';
+    const inp=document.getElementById(`vd-sin-${n}`);
+    if(inp&&count&&!inp.value) inp.value=count;
+  });
+
+  const startEl=document.getElementById('vd-start-date');
+  if(startEl&&s.startDate&&!startEl.value) startEl.value=s.startDate;
+  renderTimeline();
+}
+
+function onStartDateChange(){
+  const val=document.getElementById('vd-start-date').value;
+  if(!val) return;
+  const s=getVocabSt();
+  s.startDate=val;
+  saveVocabSt(s);
+  renderTimeline();
+}
+
+function renderTimeline(){
+  const startEl=document.getElementById('vd-start-date');
+  const startVal=startEl&&startEl.value;
+  const start=startVal?new Date(startVal+' 00:00:00'):null;
+  const today=new Date();today.setHours(0,0,0,0);
+
+  const stageColors=['#6B46C1','#6B46C1','#6B46C1','#6B46C1','#2563EB','#2563EB','#2563EB','#2563EB','#059669','#059669','#059669','#059669','#D97706'];
+  const stageNames=['發音','發音','發音','發音','意思','意思','意思','意思','字形','字形','字形','字形','活用'];
+
+  let currentWeek=-1;
+  if(start){
+    const diff=Math.floor((today-start)/(7*86400000));
+    currentWeek=Math.min(12,Math.max(0,diff));
+  }
+
+  const container=document.getElementById('vd-weeks');
+  if(!container) return;
+  container.innerHTML=stageColors.map((color,i)=>{
+    const isCur=i===currentWeek;
+    const isPast=currentWeek>=0&&i<currentWeek;
+    return `<div class="vd-week${isCur?' current':''}${isPast?' past':''}" style="${isCur?`border-color:${color};`:''}${isPast?`background:${color}18;`:''}">
+      <span class="vd-wk-num">W${i+1}</span>
+      <span class="vd-wk-stage" style="color:${color}">${stageNames[i]}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── 番茄鐘 ─────────────────────────────────────────────
+const POMO_KEY='hakka-pomo-v1';
+const POMO_C=2*Math.PI*54;
+let pomoRunning=false,pomoTotalSecs=25*60,pomoRemainSecs=25*60,pomoInterval=null,pomoOpen=true;
+
+function togglePomo(){
+  pomoOpen=!pomoOpen;
+  document.getElementById('pomo-body').style.display=pomoOpen?'block':'none';
+  document.getElementById('pomo-caret').textContent=pomoOpen?'▲':'▼';
+}
+
+function setPomoMode(btn){
+  if(pomoRunning) return;
+  document.querySelectorAll('.pomo-mode').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  pomoTotalSecs=parseInt(btn.dataset.mins)*60;
+  pomoRemainSecs=pomoTotalSecs;
+  updatePomoDisplay();
+}
+
+function togglePomoTimer(){
+  if(pomoRunning) pausePomo();
+  else startPomo();
+}
+
+function startPomo(){
+  const topic=document.getElementById('pomo-topic').value;
+  if(!topic){showToast('請先選擇學習項目！');return;}
+  pomoRunning=true;
+  document.getElementById('pomo-start-btn').textContent='⏸ 暫停';
+  pomoInterval=setInterval(tickPomo,1000);
+}
+
+function pausePomo(){
+  pomoRunning=false;
+  clearInterval(pomoInterval);
+  document.getElementById('pomo-start-btn').textContent='▶ 繼續';
+}
+
+function resetPomoTimer(){
+  pausePomo();
+  pomoRemainSecs=pomoTotalSecs;
+  document.getElementById('pomo-start-btn').textContent='▶ 開始';
+  document.getElementById('pomo-toggle-time').textContent='';
+  updatePomoDisplay();
+}
+
+function tickPomo(){
+  if(pomoRemainSecs<=0){finishPomo();return;}
+  pomoRemainSecs--;
+  updatePomoDisplay();
+}
+
+function finishPomo(){
+  clearInterval(pomoInterval);
+  pomoRunning=false;
+  playBeep();
+  const topic=document.getElementById('pomo-topic').value;
+  const mins=Math.round(pomoTotalSecs/60);
+  const now=new Date();
+  const sessions=getPomoSessions();
+  sessions.push({date:now.toISOString().slice(0,10),time:now.toTimeString().slice(0,5),topic,mins});
+  savePomoSessions(sessions);
+  renderPomoLog();
+  showToast(`🎉 完成！${mins} 分鐘 · ${topic}`);
+  pomoRemainSecs=pomoTotalSecs;
+  pomoRunning=false;
+  document.getElementById('pomo-start-btn').textContent='▶ 開始';
+  document.getElementById('pomo-toggle-time').textContent='';
+  updatePomoDisplay();
+}
+
+function updatePomoDisplay(){
+  const m=String(Math.floor(pomoRemainSecs/60)).padStart(2,'0');
+  const s=String(pomoRemainSecs%60).padStart(2,'0');
+  const t=`${m}:${s}`;
+  const disp=document.getElementById('pomo-time-display');
+  if(disp) disp.textContent=t;
+  const tt=document.getElementById('pomo-toggle-time');
+  if(tt) tt.textContent=pomoRunning?t:'';
+  const ring=document.getElementById('pomo-ring-prog');
+  if(ring){const pct=pomoRemainSecs/pomoTotalSecs;ring.style.strokeDashoffset=POMO_C*(1-pct);}
+}
+
+function playBeep(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    [[880,0],[1046,.25],[1318,.5]].forEach(([freq,delay])=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.frequency.value=freq;
+      g.gain.setValueAtTime(.3,ctx.currentTime+delay);
+      g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+delay+.5);
+      o.start(ctx.currentTime+delay);o.stop(ctx.currentTime+delay+.5);
+    });
+  }catch(e){}
+}
+
+function getPomoSessions(){try{return JSON.parse(localStorage.getItem(POMO_KEY))||[];}catch{return[];}}
+function savePomoSessions(s){localStorage.setItem(POMO_KEY,JSON.stringify(s));}
+
+function renderPomoLog(){
+  const today=new Date().toISOString().slice(0,10);
+  const list=document.getElementById('pomo-log-list');
+  if(!list) return;
+  const sessions=getPomoSessions().filter(s=>s.date===today).slice().reverse();
+  if(!sessions.length){list.innerHTML='<div class="pomo-log-empty">今天還沒有學習紀錄</div>';return;}
+  const totalMins=sessions.reduce((a,s)=>a+s.mins,0);
+  list.innerHTML=sessions.map(s=>`<div class="pomo-log-item">
+    <span class="pomo-log-time">${s.time}</span>
+    <span class="pomo-log-topic">${s.topic}</span>
+    <span class="pomo-log-dur">${s.mins}分</span>
+  </div>`).join('')+`<div class="pomo-log-total">今日合計：${totalMins} 分鐘</div>`;
+}
+
+// Init
+renderVocabDash();
+renderPomoLog();
 </script>
 </body>
 </html>
