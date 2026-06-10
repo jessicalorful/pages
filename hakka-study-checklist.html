@@ -6,15 +6,15 @@
 <title>客語認證學習材料待辦清單</title>
 <style>
 :root {
-  --primary:#6B46C1;--primary-light:#EDE9FE;--primary-dark:#4C1D95;
-  --green:#059669;--orange:#D97706;--orange-light:#FEF3C7;
-  --blue:#2563EB;--red:#DC2626;--red-light:#FEE2E2;
-  --gray:#6B7280;--gray-light:#F9FAFB;--border:#E5E7EB;
-  --text:#111827;--text-soft:#6B7280;--shadow:0 1px 3px rgba(0,0,0,.1);
+  --primary:#5F634F;--primary-light:#CFEBDF;--primary-dark:#3D4035;
+  --green:#6B8F6E;--orange:#D97706;--orange-light:#FEF3C7;
+  --blue:#9BC4CB;--red:#DC2626;--red-light:#FEE2E2;
+  --gray:#6B7280;--gray-light:#F4F8F2;--border:#D6E6D8;
+  --text:#1C2B1E;--text-soft:#5E7362;--shadow:0 1px 3px rgba(0,0,0,.1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;background:#F5F3FF;color:var(--text);min-height:100vh}
-header{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;padding:2rem;text-align:center}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;background:#EEF4EB;color:var(--text);min-height:100vh}
+header{background:linear-gradient(135deg,#3D4035,#5F634F);color:#fff;padding:2rem 2rem 1.5rem;text-align:center;position:relative}
 header h1{font-size:1.8rem;margin-bottom:.4rem}
 header p{opacity:.85;font-size:.95rem}
 .stat-row{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
@@ -23,7 +23,7 @@ header p{opacity:.85;font-size:.95rem}
 .progress-overview .label{font-weight:600;color:var(--primary-dark);white-space:nowrap}
 .progress-bar-wrap{flex:1;min-width:200px}
 .progress-bar-bg{background:#E5E7EB;border-radius:99px;height:10px;overflow:hidden}
-.progress-bar-fill{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--primary),#A78BFA);transition:width .4s;width:0%}
+.progress-bar-fill{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--blue));transition:width .4s;width:0%}
 .progress-text{font-size:.85rem;color:var(--text-soft);margin-top:4px}
 .deadline-chip{background:var(--orange-light);color:var(--orange);border-radius:99px;padding:.3rem .9rem;font-size:.85rem;font-weight:600;white-space:nowrap}
 .yt-chip{background:#FEE2E2;color:#B91C1C;border-radius:99px;padding:.3rem .9rem;font-size:.85rem;font-weight:600;white-space:nowrap}
@@ -31,23 +31,23 @@ main{max-width:900px;margin:0 auto 3rem;padding:0 1rem}
 .category{background:#fff;border-radius:12px;margin-bottom:1rem;box-shadow:var(--shadow);overflow:hidden}
 .category > details > summary{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;cursor:pointer;user-select:none;list-style:none;border-left:4px solid transparent;transition:background .15s}
 .category > details > summary::-webkit-details-marker{display:none}
-.category > details > summary:hover{background:var(--gray-light)}
+.category > details > summary:hover{background:#F0F6EE}
 .category > details[open] > summary{border-bottom:1px solid var(--border)}
 .cat-icon{font-size:1.3rem}
 .cat-title{font-size:1.05rem;font-weight:700;flex:1}
-.cat-count{font-size:.8rem;background:var(--primary-light);color:var(--primary);border-radius:99px;padding:2px 10px;font-weight:600}
+.cat-count{font-size:.8rem;background:var(--primary-light);color:var(--primary-dark);border-radius:99px;padding:2px 10px;font-weight:600}
 .cat-arrow{font-size:.75rem;color:var(--text-soft);transition:transform .2s}
 .category > details[open] .cat-arrow{transform:rotate(90deg)}
-.cat-vocab>details>summary{border-left-color:#6B46C1}
-.cat-phonics>details>summary{border-left-color:#2563EB}
-.cat-exam>details>summary{border-left-color:#D97706}
-.cat-writing>details>summary{border-left-color:#059669}
-.cat-speaking>details>summary{border-left-color:#DC2626}
-.cat-idioms>details>summary{border-left-color:#0891B2}
+.cat-vocab>details>summary{border-left-color:#5F634F}
+.cat-phonics>details>summary{border-left-color:#7AA9B0}
+.cat-exam>details>summary{border-left-color:#9BAF78}
+.cat-writing>details>summary{border-left-color:#7DB89E}
+.cat-speaking>details>summary{border-left-color:#7AA9B0}
+.cat-idioms>details>summary{border-left-color:#9BAF78}
 .item-list{padding:.5rem 0}
 .item{display:flex;align-items:flex-start;gap:.75rem;padding:.65rem 1.25rem;border-bottom:1px solid #F3F4F6;transition:background .12s}
 .item:last-child{border-bottom:none}
-.item:hover{background:#FAFAFA}
+.item:hover{background:#F4F8F2}
 .item>input[type="checkbox"]{margin-top:3px;width:17px;height:17px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
 .item-body{flex:1;min-width:0}
 .item-title{font-size:.92rem;font-weight:500;color:var(--text);line-height:1.4}
@@ -56,30 +56,30 @@ main{max-width:900px;margin:0 auto 3rem;padding:0 1rem}
 .item-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.3rem}
 .tag{font-size:.72rem;border-radius:4px;padding:1px 7px;font-weight:500}
 .tag-youtube{background:#FEE2E2;color:#B91C1C}
-.tag-hakka{background:var(--primary-light);color:var(--primary-dark)}
+.tag-hakka{background:#CFEBDF;color:#3D4035}
 .tag-drive{background:#FEF3C7;color:#92400E}
 .tag-podcast{background:#FCE7F3;color:#9D174D}
 .tag-notion{background:#F0F9FF;color:#0C4A6E}
-.tag-website{background:#ECFDF5;color:#065F46}
-.tag-ebook{background:#F5F3FF;color:#4C1D95}
+.tag-website{background:#DDEEDD;color:#1A4D2E}
+.tag-ebook{background:#E2FADB;color:#2D5A27}
 .tag-hours{background:#F3F4F6;color:#374151}
 .item.done .item-title a{color:#9CA3AF;text-decoration:line-through}
 .item.done{opacity:.6}
-.sub-group-label{padding:.6rem 1.25rem .3rem;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-soft);background:#F9FAFB;border-bottom:1px solid var(--border)}
+.sub-group-label{padding:.6rem 1.25rem .3rem;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-soft);background:#F4F8F2;border-bottom:1px solid var(--border)}
 
 /* ── Video expand ── */
 .video-expand{margin:.5rem 0 0;border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.video-expand>summary{display:flex;align-items:center;gap:.5rem;padding:.45rem .75rem;cursor:pointer;background:#F9FAFB;font-size:.8rem;color:var(--text-soft);list-style:none;user-select:none;border-bottom:1px solid transparent}
+.video-expand>summary{display:flex;align-items:center;gap:.5rem;padding:.45rem .75rem;cursor:pointer;background:#F4F8F2;font-size:.8rem;color:var(--text-soft);list-style:none;user-select:none;border-bottom:1px solid transparent}
 .video-expand>summary::-webkit-details-marker{display:none}
 .video-expand[open]>summary{border-bottom-color:var(--border)}
-.video-expand>summary:hover{background:#F3F4F6}
+.video-expand>summary:hover{background:#ECF3EC}
 .ea{font-size:.65rem;margin-left:auto;transition:transform .2s;flex-shrink:0}
 .video-expand[open]>summary .ea{transform:rotate(90deg)}
-.vid-prog{margin-left:auto;background:var(--primary-light);color:var(--primary);border-radius:99px;padding:1px 8px;font-size:.72rem;font-weight:600;white-space:nowrap}
+.vid-prog{margin-left:auto;background:var(--primary-light);color:var(--primary-dark);border-radius:99px;padding:1px 8px;font-size:.72rem;font-weight:600;white-space:nowrap}
 .pl-note{color:var(--orange);font-style:italic;font-size:.72rem}
 .video-item{display:flex;align-items:center;gap:.55rem;padding:.42rem .75rem;border-bottom:1px solid #F3F4F6;background:#fff}
 .video-item:last-child{border-bottom:none}
-.video-item:hover{background:#FAFAFA}
+.video-item:hover{background:#F4F8F2}
 .video-item input[type="checkbox"]{width:15px;height:15px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
 .vid-title{flex:1;font-size:.83rem;color:var(--text);text-decoration:none;line-height:1.3}
 .vid-title:hover{color:var(--primary);text-decoration:underline}
@@ -101,14 +101,14 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
 .vd-title{font-size:1.05rem;font-weight:700;color:var(--primary-dark)}
 .vd-sub{font-size:.78rem;color:var(--text-soft);margin-top:2px}
 .vd-overall-wrap{text-align:right;flex-shrink:0}
-.vd-big-pct{font-size:2rem;font-weight:800;color:var(--primary);display:block;line-height:1}
+.vd-big-pct{font-size:2rem;font-weight:800;color:#5F634F;display:block;line-height:1}
 .vd-count-text{font-size:.74rem;color:var(--text-soft)}
 .vd-bar-row{margin-bottom:.95rem}
 .vd-bar-bg,.vd-stage-bar-bg{background:#E5E7EB;border-radius:99px;overflow:hidden}
 .vd-bar-bg{height:10px}
 .vd-stage-bar-bg{height:7px}
-.vd-bar-fill{height:10px;background:linear-gradient(90deg,var(--primary),#A78BFA);border-radius:99px;transition:width .4s;width:0%}
-.vd-stage-bar{height:7px;border-radius:99px;background:var(--c,#6B46C1);transition:width .4s;width:0%}
+.vd-bar-fill{height:10px;background:linear-gradient(90deg,#5F634F,#9BC4CB);border-radius:99px;transition:width .4s;width:0%}
+.vd-stage-bar{height:7px;border-radius:99px;background:var(--c,#5F634F);transition:width .4s;width:0%}
 .vd-stages{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
 .vd-stage{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
 .vd-stage-emoji{font-size:1.1rem;width:1.5rem;text-align:center;flex-shrink:0}
@@ -118,23 +118,23 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
 .vd-stage-update{display:flex;gap:.32rem;align-items:center}
 .vd-input{width:96px;padding:.28rem .42rem;border:1px solid var(--border);border-radius:6px;font-size:.8rem;color:var(--text)}
 .vd-input:focus{outline:none;border-color:var(--primary)}
-.vd-btn{padding:.28rem .62rem;background:var(--primary);color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
-.vd-btn:hover{background:var(--primary-dark)}
+.vd-btn{padding:.28rem .62rem;background:#5F634F;color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
+.vd-btn:hover{background:#3D4035}
 .vd-timeline{border-top:1px solid var(--border);padding-top:.85rem}
 .vd-tl-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.55rem;flex-wrap:wrap;gap:.4rem}
 .vd-tl-label{font-size:.82rem;font-weight:700;color:var(--text)}
 .vd-tl-start{display:flex;align-items:center;gap:.32rem;font-size:.74rem;color:var(--text-soft)}
 #vd-start-date{border:1px solid var(--border);border-radius:5px;padding:.15rem .32rem;font-size:.74rem;color:var(--text)}
 .vd-weeks{display:grid;grid-template-columns:repeat(13,1fr);gap:3px}
-.vd-week{border-radius:6px;padding:.28rem .08rem;text-align:center;background:#F9FAFB;border:2px solid transparent;transition:all .2s}
-.vd-week.current{border-color:var(--primary);box-shadow:0 0 0 2px rgba(107,70,193,.18)}
+.vd-week{border-radius:6px;padding:.28rem .08rem;text-align:center;background:#F4F8F2;border:2px solid transparent;transition:all .2s}
+.vd-week.current{border-color:#5F634F;box-shadow:0 0 0 2px rgba(95,99,79,.18)}
 .vd-week.past{opacity:.5}
 .vd-wk-num{display:block;font-size:.6rem;color:var(--text-soft);font-weight:600}
 .vd-wk-stage{display:block;font-size:.56rem;font-weight:700;margin-top:1px}
 
 /* ── 番茄鐘 ── */
 .pomo-widget{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:228px;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.16);border:1px solid var(--border)}
-.pomo-toggle{display:flex;align-items:center;gap:.42rem;padding:.6rem .85rem;cursor:pointer;background:var(--primary);color:#fff;user-select:none;border-radius:14px 14px 0 0}
+.pomo-toggle{display:flex;align-items:center;gap:.42rem;padding:.6rem .85rem;cursor:pointer;background:#5F634F;color:#fff;user-select:none;border-radius:14px 14px 0 0}
 .pomo-toggle-label{font-size:.84rem;font-weight:700;flex:1}
 .pomo-toggle-time{font-size:.78rem;font-variant-numeric:tabular-nums;opacity:.9;font-weight:600}
 .pomo-caret{font-size:.58rem;opacity:.75}
@@ -143,16 +143,16 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
 .pomo-select:focus{outline:none;border-color:var(--primary)}
 .pomo-modes{display:flex;gap:.28rem;margin-bottom:.72rem}
 .pomo-mode{flex:1;padding:.26rem 0;border:1px solid var(--border);border-radius:5px;background:#fff;font-size:.68rem;color:var(--text-soft);cursor:pointer;transition:all .15s}
-.pomo-mode.active{background:var(--primary-light);border-color:var(--primary);color:var(--primary);font-weight:700}
+.pomo-mode.active{background:#CFEBDF;border-color:#5F634F;color:#3D4035;font-weight:700}
 .pomo-ring-wrap{position:relative;display:flex;justify-content:center;align-items:center;margin-bottom:.72rem;height:120px}
 .pomo-svg{transform:rotate(-90deg)}
 .pomo-ring-track{fill:none;stroke:#E5E7EB;stroke-width:8}
-.pomo-ring-prog{fill:none;stroke:var(--primary);stroke-width:8;stroke-linecap:round;stroke-dasharray:339.3;stroke-dashoffset:0;transition:stroke-dashoffset .9s linear}
+.pomo-ring-prog{fill:none;stroke:#5F634F;stroke-width:8;stroke-linecap:round;stroke-dasharray:339.3;stroke-dashoffset:0;transition:stroke-dashoffset .9s linear}
 .pomo-time-display{position:absolute;font-size:1.42rem;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 .pomo-controls{display:flex;gap:.42rem;margin-bottom:.75rem}
 .pomo-ctrl-btn{flex:1;padding:.4rem 0;border:none;border-radius:7px;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .15s}
-.pomo-ctrl-btn.start{background:var(--primary);color:#fff}
-.pomo-ctrl-btn.start:hover{background:var(--primary-dark)}
+.pomo-ctrl-btn.start{background:#5F634F;color:#fff}
+.pomo-ctrl-btn.start:hover{background:#3D4035}
 .pomo-ctrl-btn.reset{background:#F3F4F6;color:var(--text-soft)}
 .pomo-ctrl-btn.reset:hover{background:#E5E7EB;color:var(--text)}
 .pomo-log{border-top:1px solid var(--border);padding-top:.6rem}
@@ -162,8 +162,64 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
 .pomo-log-item:last-child{border-bottom:none}
 .pomo-log-time{color:var(--text-soft);flex-shrink:0;font-variant-numeric:tabular-nums}
 .pomo-log-topic{flex:1;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.68rem}
-.pomo-log-dur{font-weight:700;color:var(--primary);flex-shrink:0}
+.pomo-log-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:inline-block}
+.pomo-log-dur{font-weight:700;color:#5F634F;flex-shrink:0}
 .pomo-log-total{margin-top:.38rem;font-size:.7rem;color:var(--text-soft);text-align:right;font-weight:600}
+
+/* ── Sync Status ── */
+.sync-status-btn{position:absolute;top:.9rem;right:1rem;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:99px;padding:.28rem .72rem;font-size:.74rem;cursor:pointer;display:flex;align-items:center;gap:.38rem;transition:background .15s}
+.sync-status-btn:hover{background:rgba(255,255,255,.28)}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:#D1D5DB;flex-shrink:0}
+.sync-dot.ok{background:#86EFAC}
+.sync-dot.syncing{background:#FDE68A;animation:sdpulse .7s infinite alternate}
+.sync-dot.error{background:#FCA5A5}
+@keyframes sdpulse{from{opacity:.5}to{opacity:1}}
+
+/* ── Study Time Dashboard ── */
+.study-dash{background:#fff;max-width:900px;margin:0 auto 1rem;border-radius:12px;box-shadow:var(--shadow);padding:1.25rem 1.5rem}
+.sd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.85rem;flex-wrap:wrap}
+.sd-title{font-size:1.05rem;font-weight:700;color:#3D4035}
+.sd-sub{font-size:.78rem;color:var(--text-soft);margin-top:2px}
+.sd-right{display:flex;flex-direction:column;align-items:flex-end;gap:.42rem}
+.sd-tabs{display:flex;gap:.28rem}
+.sd-tab{padding:.22rem .7rem;border:1px solid var(--border);border-radius:99px;font-size:.75rem;color:var(--text-soft);background:#fff;cursor:pointer;transition:all .15s}
+.sd-tab.active{background:#5F634F;color:#fff;border-color:#5F634F}
+.sd-big-time{font-size:2rem;font-weight:800;color:#5F634F;line-height:1}
+.sd-time-sub{font-size:.74rem;color:var(--text-soft);text-align:right}
+.sd-stacked-wrap{background:#E5E7EB;border-radius:99px;overflow:hidden;height:12px;margin-bottom:.85rem}
+.sd-stacked-bar{display:flex;height:12px;border-radius:99px;overflow:hidden}
+.sd-cats{display:flex;flex-direction:column;gap:.52rem}
+.sd-cat-row{display:flex;align-items:center;gap:.55rem}
+.sd-cat-dot{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.sd-cat-label{font-size:.78rem;font-weight:600;color:var(--text);width:68px;flex-shrink:0}
+.sd-cat-bar-bg{flex:1;background:#F0F4ED;border-radius:99px;height:6px;overflow:hidden}
+.sd-cat-bar{height:6px;border-radius:99px;transition:width .4s}
+.sd-cat-mins{font-size:.75rem;font-weight:700;color:var(--text-soft);min-width:2.8rem;text-align:right}
+
+/* ── Sync Modal ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal-box{background:#fff;border-radius:16px;width:min(480px,100%);box-shadow:0 8px 40px rgba(0,0,0,.2);overflow:hidden}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.4rem;background:#5F634F;color:#fff}
+.modal-title{font-size:.95rem;font-weight:700}
+.modal-close{background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer;opacity:.8;padding:.2rem .4rem;line-height:1}
+.modal-close:hover{opacity:1}
+.modal-body{padding:1.2rem 1.4rem}
+.modal-field{margin-bottom:.8rem}
+.modal-field label{display:block;font-size:.79rem;font-weight:600;color:var(--text);margin-bottom:.3rem}
+.modal-field input{width:100%;padding:.38rem .6rem;border:1px solid var(--border);border-radius:7px;font-size:.84rem;color:var(--text)}
+.modal-field input:focus{outline:none;border-color:#5F634F}
+.modal-hint{background:#F4F8F2;border-radius:8px;padding:.65rem .85rem;font-size:.74rem;color:var(--text-soft);line-height:1.65;margin-bottom:.9rem}
+.modal-hint strong{color:var(--text)}
+.modal-hint code{background:#E5E7EB;padding:1px 4px;border-radius:3px;font-family:monospace;font-size:.71rem}
+.modal-hint a{color:#5F634F}
+.modal-actions{display:flex;gap:.5rem}
+.modal-btn-test{flex:1;padding:.4rem;border:1px solid var(--border);border-radius:7px;background:#fff;color:var(--text-soft);font-size:.81rem;cursor:pointer;transition:all .15s}
+.modal-btn-test:hover{background:#F4F8F2}
+.modal-btn-save{flex:1;padding:.4rem;border:none;border-radius:7px;background:#5F634F;color:#fff;font-size:.81rem;font-weight:700;cursor:pointer;transition:background .15s}
+.modal-btn-save:hover{background:#3D4035}
+.fb-test-msg{margin-top:.45rem;font-size:.77rem;padding:.28rem .5rem;border-radius:5px}
+.fb-test-ok{background:#DCFCE7;color:#166534}
+.fb-test-err{background:#FEE2E2;color:#991B1B}
 
 @media(max-width:600px){
   .vd-stage-update{width:100%}
@@ -175,6 +231,10 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
 <body>
 
 <header>
+  <button class="sync-status-btn" id="sync-status-btn" onclick="openSyncModal()">
+    <span class="sync-dot" id="sync-dot"></span>
+    <span id="sync-label">☁️ 同步設定</span>
+  </button>
   <h1>📚 客語認證學習材料</h1>
   <p>四縣腔 · 中級 ＋ 中高級 · 目標：2026 年 10 月前完成</p>
   <div class="stat-row">
@@ -213,7 +273,7 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
       <span class="vd-stage-emoji">🔊</span>
       <div class="vd-stage-info">
         <div class="vd-stage-name">第一階段 · 發音練習</div>
-        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-1" style="--c:#6B46C1"></div></div>
+        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-1" style="--c:#5F634F"></div></div>
       </div>
       <span class="vd-stage-pct" id="vd-spct-1">0%</span>
       <div class="vd-stage-update">
@@ -225,7 +285,7 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
       <span class="vd-stage-emoji">💡</span>
       <div class="vd-stage-info">
         <div class="vd-stage-name">第二階段 · 意思練習</div>
-        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-2" style="--c:#2563EB"></div></div>
+        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-2" style="--c:#9BC4CB"></div></div>
       </div>
       <span class="vd-stage-pct" id="vd-spct-2">0%</span>
       <div class="vd-stage-update">
@@ -237,7 +297,7 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
       <span class="vd-stage-emoji">✍️</span>
       <div class="vd-stage-info">
         <div class="vd-stage-name">第三階段 · 字形+拼音</div>
-        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-3" style="--c:#059669"></div></div>
+        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-3" style="--c:#7DB89E"></div></div>
       </div>
       <span class="vd-stage-pct" id="vd-spct-3">0%</span>
       <div class="vd-stage-update">
@@ -249,7 +309,7 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
       <span class="vd-stage-emoji">🎓</span>
       <div class="vd-stage-info">
         <div class="vd-stage-name">第四階段 · 活用練習</div>
-        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-4" style="--c:#D97706"></div></div>
+        <div class="vd-stage-bar-bg"><div class="vd-stage-bar" id="vd-sbar-4" style="--c:#9BAF78"></div></div>
       </div>
       <span class="vd-stage-pct" id="vd-spct-4">0%</span>
       <div class="vd-stage-update">
@@ -265,6 +325,28 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
     </div>
     <div class="vd-weeks" id="vd-weeks"></div>
   </div>
+</div>
+
+<!-- ── 學習時間統計 ── -->
+<div class="study-dash" id="study-dash">
+  <div class="sd-head">
+    <div>
+      <div class="sd-title">⏱ 學習時間統計</div>
+      <div class="sd-sub">番茄鐘累計 · 依類型分色</div>
+    </div>
+    <div class="sd-right">
+      <div class="sd-tabs">
+        <button class="sd-tab active" id="sd-tab-today" onclick="switchStudyTab('today')">今日</button>
+        <button class="sd-tab" id="sd-tab-total" onclick="switchStudyTab('total')">累計</button>
+      </div>
+      <div>
+        <span class="sd-big-time" id="sd-big-time">0 分</span>
+        <div class="sd-time-sub" id="sd-time-sub">今日學習</div>
+      </div>
+    </div>
+  </div>
+  <div class="sd-stacked-wrap"><div class="sd-stacked-bar" id="sd-stacked-bar"></div></div>
+  <div class="sd-cats" id="sd-cats"></div>
 </div>
 
 <main>
@@ -619,7 +701,7 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
 
 </main>
 <div class="btn-row">
-  <button class="sync-btn" onclick="syncExport()">📋 複製進度連結（跨裝置同步）</button>
+  <button class="sync-btn" onclick="syncExport()">📋 備份進度連結</button>
   <button class="reset-btn" onclick="resetAll()">重置所有進度</button>
 </div>
 <div id="toast" class="toast"></div>
@@ -666,6 +748,38 @@ footer{text-align:center;color:var(--text-soft);font-size:.8rem;padding-bottom:2
     <div class="pomo-log">
       <div class="pomo-log-head">📝 今日紀錄</div>
       <div id="pomo-log-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Firebase 同步設定 Modal ── -->
+<div id="sync-modal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeSyncModal()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <span class="modal-title">☁️ Firebase 雲端同步設定</span>
+      <button class="modal-close" onclick="closeSyncModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Firebase Realtime Database URL</label>
+        <input type="url" id="fb-url-input" placeholder="https://your-project-default-rtdb.firebaseio.com">
+      </div>
+      <div class="modal-field">
+        <label>個人同步碼（建議用難猜的字串）</label>
+        <input type="text" id="fb-key-input" placeholder="例如：jessica-hakka-2026-abc">
+      </div>
+      <div class="modal-hint">
+        <strong>設定步驟：</strong><br>
+        1. 前往 <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> → 建立專案<br>
+        2. Realtime Database → 建立資料庫（選測試模式）<br>
+        3. 複製資料庫 URL 貼到上方欄位<br>
+        4. Rules 改為：<code>{"rules":{".read":true,".write":true}}</code>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn-test" onclick="testFbConnection()">🔗 測試連線</button>
+        <button class="modal-btn-save" onclick="saveFbAndSync()">儲存並同步</button>
+      </div>
+      <div id="fb-test-result"></div>
     </div>
   </div>
 </div>
@@ -796,11 +910,26 @@ const PLAYLISTS = [
     ]},
 ];
 
+// Firebase
+let FB_URL='',FB_KEY='',_suppressFbPush=false,fbDebounceTimer=null;
+function loadFbConfig(){FB_URL=localStorage.getItem('hakka-fb-url')||'';FB_KEY=localStorage.getItem('hakka-fb-key')||'';}
+function fbApiUrl(){return`${FB_URL}/hakka/${encodeURIComponent(FB_KEY)}.json`;}
+async function fbGet(){if(!FB_URL||!FB_KEY)return null;try{const r=await fetch(fbApiUrl());return r.ok?await r.json():null;}catch{return null;}}
+async function fbPut(data){if(!FB_URL||!FB_KEY)return false;try{const r=await fetch(fbApiUrl(),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});return r.ok;}catch{return false;}}
+function scheduleFbPush(){if(!FB_URL||!FB_KEY)return;clearTimeout(fbDebounceTimer);fbDebounceTimer=setTimeout(pushToFirebase,1500);}
+async function pushToFirebase(){setSyncStatus('syncing');const ok=await fbPut({checklist:getState(),vocab:getVocabSt(),pomo:getPomoSessions()});setSyncStatus(ok?'ok':'error');}
+async function pullFromFirebase(){if(!FB_URL||!FB_KEY)return false;setSyncStatus('syncing');const r=await fbGet();if(!r){setSyncStatus('error');return false;}_suppressFbPush=true;if(r.checklist)saveState(r.checklist);if(r.vocab)saveVocabSt(r.vocab);if(r.pomo)savePomoSessions(r.pomo);_suppressFbPush=false;setSyncStatus('ok');return true;}
+function setSyncStatus(s){const dot=document.getElementById('sync-dot'),lbl=document.getElementById('sync-label');if(!dot)return;dot.className='sync-dot '+(s==='ok'?'ok':s==='syncing'?'syncing':s==='error'?'error':'');const map={ok:'☁️ 已同步',syncing:'🔄 同步中',error:'⚠️ 失敗'};if(lbl)lbl.textContent=FB_URL?(map[s]||'☁️ 同步'):'☁️ 同步設定';}
+function openSyncModal(){document.getElementById('sync-modal').style.display='flex';document.getElementById('fb-url-input').value=FB_URL;document.getElementById('fb-key-input').value=FB_KEY;document.getElementById('fb-test-result').textContent='';}
+function closeSyncModal(){document.getElementById('sync-modal').style.display='none';}
+async function testFbConnection(){const url=document.getElementById('fb-url-input').value.trim().replace(/\/+$/,''),key=document.getElementById('fb-key-input').value.trim(),el=document.getElementById('fb-test-result');if(!url||!key){el.textContent='請先填入 URL 和同步碼';el.className='fb-test-msg fb-test-err';return;}el.textContent='測試中…';el.className='fb-test-msg';try{const r=await fetch(`${url}/hakka/${encodeURIComponent(key)}/ping.json`,{method:'PUT',headers:{'Content-Type':'application/json'},body:'"ok"'});el.textContent=r.ok?'✅ 連線成功！':'❌ 失敗 (HTTP '+r.status+')，請確認 Firebase Rules';el.className='fb-test-msg '+(r.ok?'fb-test-ok':'fb-test-err');}catch{el.textContent='❌ 無法連線，請確認 URL 格式';el.className='fb-test-msg fb-test-err';}}
+async function saveFbAndSync(){const url=document.getElementById('fb-url-input').value.trim().replace(/\/+$/,''),key=document.getElementById('fb-key-input').value.trim();if(!url||!key){showToast('請填入 Firebase URL 和同步碼');return;}FB_URL=url;FB_KEY=key;localStorage.setItem('hakka-fb-url',FB_URL);localStorage.setItem('hakka-fb-key',FB_KEY);closeSyncModal();const pulled=await pullFromFirebase();if(pulled){restoreCheckboxStates();updateGlobal();renderVocabDash();renderPomoLog();renderStudyDash();showToast('✅ 同步成功！');}else{await pushToFirebase();showToast('✅ 已連線，本機資料已上傳！');}}
+
 function durToSecs(d){const p=d.split(':').map(Number);return p.length===2?p[0]*60+p[1]:p[0]*3600+p[1]*60+p[2];}
 function secToMS(s){const m=Math.floor(s/60),sec=s%60;return`${m} 分 ${String(sec).padStart(2,'0')} 秒`;}
 function secToHMS(s){const h=Math.floor(s/3600),m=Math.floor(s%3600/60),sec=s%60;return h>0?`${h} 小時 ${m} 分 ${String(sec).padStart(2,'0')} 秒`:`${m} 分 ${String(sec).padStart(2,'0')} 秒`;}
 function getState(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch{return {};}}
-function saveState(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}
+function saveState(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s));if(!_suppressFbPush)scheduleFbPush();}
 
 function getItemKey(cb){
   const item=cb.closest('.item');
@@ -945,18 +1074,12 @@ function syncImport(){
   }catch(e){return 0;}
 }
 
-renderPlaylists();
-const _imported=syncImport();
-restoreAndBind();
-updateGlobal();
-if(_imported) setTimeout(()=>showToast(`✅ 已從連結匯入 ${_imported} 項進度！`),200);
-
 // ── 詞彙進度儀表板 ─────────────────────────────────────
 const VD_KEY='hakka-vocab-v1';
 const VOCAB_TOTAL=3829;
 
 function getVocabSt(){try{return JSON.parse(localStorage.getItem(VD_KEY))||{};}catch{return{};}}
-function saveVocabSt(s){localStorage.setItem(VD_KEY,JSON.stringify(s));}
+function saveVocabSt(s){localStorage.setItem(VD_KEY,JSON.stringify(s));if(!_suppressFbPush)scheduleFbPush();}
 
 function updateVocabStage(n){
   const inp=document.getElementById(`vd-sin-${n}`);
@@ -1014,7 +1137,7 @@ function renderTimeline(){
   const start=startVal?new Date(startVal+' 00:00:00'):null;
   const today=new Date();today.setHours(0,0,0,0);
 
-  const stageColors=['#6B46C1','#6B46C1','#6B46C1','#6B46C1','#2563EB','#2563EB','#2563EB','#2563EB','#059669','#059669','#059669','#059669','#D97706'];
+  const stageColors=['#5F634F','#5F634F','#5F634F','#5F634F','#9BC4CB','#9BC4CB','#9BC4CB','#9BC4CB','#7DB89E','#7DB89E','#7DB89E','#7DB89E','#9BAF78'];
   const stageNames=['發音','發音','發音','發音','意思','意思','意思','意思','字形','字形','字形','字形','活用'];
 
   let currentWeek=-1;
@@ -1038,16 +1161,40 @@ function renderTimeline(){
 // ── 番茄鐘 ─────────────────────────────────────────────
 const POMO_KEY='hakka-pomo-v1';
 const POMO_C=2*Math.PI*54;
-let pomoRunning=false,pomoTotalSecs=25*60,pomoRemainSecs=25*60,pomoInterval=null,pomoOpen=true;
+let pomoRunning=false,pomoTotalSecs=25*60,pomoRemainSecs=25*60,pomoInterval=null,pomoOpen=true,pomoSegmentStart=null;
 
-function togglePomo(){
-  pomoOpen=!pomoOpen;
-  document.getElementById('pomo-body').style.display=pomoOpen?'block':'none';
-  document.getElementById('pomo-caret').textContent=pomoOpen?'▲':'▼';
+const STUDY_CATS=[
+  {label:'發音·拼音',color:'#5F634F',topics:['🔊 第一階段：發音練習','🔤 拼音基礎']},
+  {label:'影片·意思',color:'#9BC4CB',topics:['🎬 詞彙（YouTube 影片）','💡 第二階段：意思練習']},
+  {label:'字形·活用',color:'#CFEBDF',topics:['✍️ 第三階段：字形+拼音','🎓 第四階段：活用練習']},
+  {label:'書寫·口說',color:'#E2FADB',topics:['✏️ 書寫/作文','🗣️ 口說練習']},
+  {label:'考試·典故',color:'#DBEFBC',topics:['🎯 考試策略','📚 客語典故']},
+];
+function getTopicColor(t){for(const c of STUDY_CATS)if(c.topics.includes(t))return c.color;return '#9BC4CB';}
+
+let studyTabMode='today';
+function switchStudyTab(m){studyTabMode=m;document.getElementById('sd-tab-today').classList.toggle('active',m==='today');document.getElementById('sd-tab-total').classList.toggle('active',m==='total');renderStudyDash();}
+
+function renderStudyDash(){
+  const today=new Date().toISOString().slice(0,10);
+  const all=getPomoSessions();
+  const filtered=studyTabMode==='today'?all.filter(s=>s.date===today):all;
+  const catMins=STUDY_CATS.map(c=>({...c,mins:filtered.filter(s=>c.topics.includes(s.topic)).reduce((a,s)=>a+s.mins,0)}));
+  const total=catMins.reduce((a,c)=>a+c.mins,0);
+  const bt=document.getElementById('sd-big-time');
+  if(bt)bt.textContent=total>=60?`${Math.floor(total/60)}h ${total%60}m`:`${total} 分`;
+  const ts=document.getElementById('sd-time-sub');
+  if(ts)ts.textContent=studyTabMode==='today'?'今日學習':'累計學習';
+  const bar=document.getElementById('sd-stacked-bar');
+  if(bar){const active=catMins.filter(c=>c.mins>0);bar.innerHTML=active.length?active.map(c=>`<div style="flex:${c.mins};background:${c.color}" title="${c.label}：${c.mins}分"></div>`).join(''):'';}
+  const cats=document.getElementById('sd-cats');
+  if(cats){cats.innerHTML=catMins.map(c=>{const pct=total?Math.round(c.mins/total*100):0;const bd=['#CFEBDF','#E2FADB','#DBEFBC'].includes(c.color)?'border:1px solid #ccc':'';return`<div class="sd-cat-row"><div class="sd-cat-dot" style="background:${c.color};${bd}"></div><div class="sd-cat-label">${c.label}</div><div class="sd-cat-bar-bg"><div class="sd-cat-bar" style="width:${pct}%;background:${c.color}"></div></div><div class="sd-cat-mins">${c.mins>0?c.mins+'分':'—'}</div></div>`;}).join('');}
 }
 
+function togglePomo(){pomoOpen=!pomoOpen;document.getElementById('pomo-body').style.display=pomoOpen?'block':'none';document.getElementById('pomo-caret').textContent=pomoOpen?'▲':'▼';}
+
 function setPomoMode(btn){
-  if(pomoRunning) return;
+  if(pomoRunning)return;
   document.querySelectorAll('.pomo-mode').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   pomoTotalSecs=parseInt(btn.dataset.mins)*60;
@@ -1055,104 +1202,90 @@ function setPomoMode(btn){
   updatePomoDisplay();
 }
 
-function togglePomoTimer(){
-  if(pomoRunning) pausePomo();
-  else startPomo();
-}
+function togglePomoTimer(){if(pomoRunning)pausePomo();else startPomo();}
 
 function startPomo(){
   const topic=document.getElementById('pomo-topic').value;
   if(!topic){showToast('請先選擇學習項目！');return;}
-  pomoRunning=true;
+  pomoRunning=true;pomoSegmentStart=Date.now();
   document.getElementById('pomo-start-btn').textContent='⏸ 暫停';
   pomoInterval=setInterval(tickPomo,1000);
 }
 
 function pausePomo(){
-  pomoRunning=false;
-  clearInterval(pomoInterval);
+  pomoRunning=false;clearInterval(pomoInterval);
   document.getElementById('pomo-start-btn').textContent='▶ 繼續';
+  if(pomoSegmentStart){const secs=Math.floor((Date.now()-pomoSegmentStart)/1000);pomoSegmentStart=null;if(secs>=60)recordPomoSegment(secs);}
 }
 
 function resetPomoTimer(){
-  pausePomo();
+  pomoRunning=false;clearInterval(pomoInterval);pomoSegmentStart=null;
   pomoRemainSecs=pomoTotalSecs;
   document.getElementById('pomo-start-btn').textContent='▶ 開始';
   document.getElementById('pomo-toggle-time').textContent='';
   updatePomoDisplay();
 }
 
-function tickPomo(){
-  if(pomoRemainSecs<=0){finishPomo();return;}
-  pomoRemainSecs--;
-  updatePomoDisplay();
-}
+function tickPomo(){if(pomoRemainSecs<=0){finishPomo();return;}pomoRemainSecs--;updatePomoDisplay();}
 
-function finishPomo(){
-  clearInterval(pomoInterval);
-  pomoRunning=false;
-  playBeep();
-  const topic=document.getElementById('pomo-topic').value;
-  const mins=Math.round(pomoTotalSecs/60);
+function recordPomoSegment(secs){
+  const topic=document.getElementById('pomo-topic').value;if(!topic)return;
+  const mins=Math.max(1,Math.round(secs/60));
   const now=new Date();
   const sessions=getPomoSessions();
   sessions.push({date:now.toISOString().slice(0,10),time:now.toTimeString().slice(0,5),topic,mins});
-  savePomoSessions(sessions);
-  renderPomoLog();
-  showToast(`🎉 完成！${mins} 分鐘 · ${topic}`);
+  savePomoSessions(sessions);renderPomoLog();renderStudyDash();
+}
+
+function finishPomo(){
+  clearInterval(pomoInterval);pomoRunning=false;playBeep();
+  if(pomoSegmentStart){const secs=Math.floor((Date.now()-pomoSegmentStart)/1000);pomoSegmentStart=null;if(secs>=60)recordPomoSegment(secs);}
+  const topic=document.getElementById('pomo-topic').value;
+  showToast(`🎉 完成！${Math.round(pomoTotalSecs/60)} 分鐘 · ${topic}`);
   pomoRemainSecs=pomoTotalSecs;
-  pomoRunning=false;
   document.getElementById('pomo-start-btn').textContent='▶ 開始';
   document.getElementById('pomo-toggle-time').textContent='';
   updatePomoDisplay();
 }
 
 function updatePomoDisplay(){
-  const m=String(Math.floor(pomoRemainSecs/60)).padStart(2,'0');
-  const s=String(pomoRemainSecs%60).padStart(2,'0');
-  const t=`${m}:${s}`;
-  const disp=document.getElementById('pomo-time-display');
-  if(disp) disp.textContent=t;
-  const tt=document.getElementById('pomo-toggle-time');
-  if(tt) tt.textContent=pomoRunning?t:'';
-  const ring=document.getElementById('pomo-ring-prog');
-  if(ring){const pct=pomoRemainSecs/pomoTotalSecs;ring.style.strokeDashoffset=POMO_C*(1-pct);}
+  const m=String(Math.floor(pomoRemainSecs/60)).padStart(2,'0'),s=String(pomoRemainSecs%60).padStart(2,'0'),t=`${m}:${s}`;
+  const disp=document.getElementById('pomo-time-display');if(disp)disp.textContent=t;
+  const tt=document.getElementById('pomo-toggle-time');if(tt)tt.textContent=pomoRunning?t:'';
+  const ring=document.getElementById('pomo-ring-prog');if(ring)ring.style.strokeDashoffset=POMO_C*(1-pomoRemainSecs/pomoTotalSecs);
 }
 
-function playBeep(){
-  try{
-    const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    [[880,0],[1046,.25],[1318,.5]].forEach(([freq,delay])=>{
-      const o=ctx.createOscillator(),g=ctx.createGain();
-      o.connect(g);g.connect(ctx.destination);
-      o.frequency.value=freq;
-      g.gain.setValueAtTime(.3,ctx.currentTime+delay);
-      g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+delay+.5);
-      o.start(ctx.currentTime+delay);o.stop(ctx.currentTime+delay+.5);
-    });
-  }catch(e){}
-}
+function playBeep(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();[[880,0],[1046,.25],[1318,.5]].forEach(([freq,delay])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=freq;g.gain.setValueAtTime(.3,ctx.currentTime+delay);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+delay+.5);o.start(ctx.currentTime+delay);o.stop(ctx.currentTime+delay+.5);});}catch(e){}}
 
 function getPomoSessions(){try{return JSON.parse(localStorage.getItem(POMO_KEY))||[];}catch{return[];}}
-function savePomoSessions(s){localStorage.setItem(POMO_KEY,JSON.stringify(s));}
+function savePomoSessions(s){localStorage.setItem(POMO_KEY,JSON.stringify(s));if(!_suppressFbPush)scheduleFbPush();}
 
 function renderPomoLog(){
   const today=new Date().toISOString().slice(0,10);
-  const list=document.getElementById('pomo-log-list');
-  if(!list) return;
+  const list=document.getElementById('pomo-log-list');if(!list)return;
   const sessions=getPomoSessions().filter(s=>s.date===today).slice().reverse();
   if(!sessions.length){list.innerHTML='<div class="pomo-log-empty">今天還沒有學習紀錄</div>';return;}
   const totalMins=sessions.reduce((a,s)=>a+s.mins,0);
-  list.innerHTML=sessions.map(s=>`<div class="pomo-log-item">
-    <span class="pomo-log-time">${s.time}</span>
-    <span class="pomo-log-topic">${s.topic}</span>
-    <span class="pomo-log-dur">${s.mins}分</span>
-  </div>`).join('')+`<div class="pomo-log-total">今日合計：${totalMins} 分鐘</div>`;
+  list.innerHTML=sessions.map(s=>`<div class="pomo-log-item"><span class="pomo-log-dot" style="background:${getTopicColor(s.topic)}"></span><span class="pomo-log-time">${s.time}</span><span class="pomo-log-topic">${s.topic}</span><span class="pomo-log-dur">${s.mins}分</span></div>`).join('')+`<div class="pomo-log-total">今日合計：${totalMins} 分鐘</div>`;
+}
+
+function restoreCheckboxStates(){
+  const s=getState();
+  document.querySelectorAll('.item>input[type="checkbox"]').forEach(cb=>{const k=getItemKey(cb);cb.checked=!!s[k];cb.closest('.item').classList.toggle('done',!!s[k]);});
+  document.querySelectorAll('.vid-cb').forEach(cb=>{const item=cb.closest('.video-item');const k=`vid-${item.dataset.plId}-${item.dataset.vidIdx}`;cb.checked=!!s[k];item.classList.toggle('vid-done',!!s[k]);});
 }
 
 // Init
-renderVocabDash();
-renderPomoLog();
+async function init(){
+  renderPlaylists();
+  const _imported=syncImport();
+  restoreAndBind();updateGlobal();
+  renderVocabDash();renderPomoLog();renderStudyDash();
+  if(_imported)setTimeout(()=>showToast(`✅ 已從連結匯入 ${_imported} 項進度！`),200);
+  loadFbConfig();
+  if(FB_URL&&FB_KEY){const pulled=await pullFromFirebase();if(pulled){restoreCheckboxStates();updateGlobal();renderVocabDash();renderPomoLog();renderStudyDash();}}
+}
+init();
 </script>
 </body>
 </html>
